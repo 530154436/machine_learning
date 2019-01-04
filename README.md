@@ -13,7 +13,7 @@
 ### 第八章 提升方法
 ### 第十章 隐马尔科夫模型
 ## 引用
-[1] https://github.com/wzyonggege/statistical-learning-method
+> [1] https://github.com/wzyonggege/statistical-learning-method
 [2] https://github.com/WenDesi/lihang_book_algorithm
 [3] https://blog.csdn.net/tudaodiaozhale
 [4] https://github.com/fengdu78/lihang-code
