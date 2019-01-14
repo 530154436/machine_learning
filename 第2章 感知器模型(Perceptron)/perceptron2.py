@@ -1,7 +1,6 @@
 # /usr/bin/env python3
 # -*- coding:utf-8 -*-
 import numpy as np
-
 print_pattern = 'Iteration {}, 误分类点: x{}, alphas={}, b={}'
 
 class Perceptron():
@@ -20,14 +19,7 @@ class Perceptron():
         self.learning_rate = learning_rate
 
     def __init(self, data_set):
-        '''
-        计算 Gram 矩阵、初始化 alphas
-          gram =[[18, 21 ,6],
-                 [21, 25 ,7],
-                 [ 6, 7 , 2]]
-        :param data_set:
-        :return:
-        '''
+        ''' 计算 Gram 矩阵、初始化 alphas :return: '''
         N = len(data_set)
         self.alphas = np.zeros(N, dtype=np.float)
         self.gram = np.zeros(shape=(N, N), dtype=int)
@@ -38,46 +30,30 @@ class Perceptron():
         return self.gram
 
     def __cal(self, i, y):
-        '''
-        计算距离
-        :param i:
-        :param y:
-        :return:
-        '''
+        ''' 计算距离 '''
         res = np.dot(self.alphas * y, self.gram[i]) + self.b
         res *= y[i]
         return res
 
-    def __update(self, i, yi):
-        '''
-        更新权值、偏置
-        :param item: 实例点及类别 [(x1,x2),y]
-        :return:
-        '''
+    def __update(self, i, y):
+        ''' 更新权值、偏置 '''
         self.alphas[i] += self.learning_rate
-        self.b += self.learning_rate * yi
+        self.b += self.learning_rate * y[i]
 
     def __check(self, y):
-        '''
-        标识是否存在误分类点
-        :param data_set:
-        :return:
-        '''
+        ''' 标识是否存在误分类点 '''
         flag = False
         for i in range(len(y)):
             if self.__cal(i, y) <= 0:
                 flag = True
-                self.__update(i, y[i])
+                self.__update(i, y)
                 self.iteration += 1
                 print(print_pattern.format(self.iteration, i+1, self.alphas, self.b))
         # 误分类点不存在，迭代结束
         return flag
 
     def train(self, data_set):
-        '''
-        感知机学习算法的对偶形式
-        :param data_set:
-        :return:
+        ''' 感知机学习算法的对偶形式
         '''
         self.__init(data_set)
 
@@ -97,11 +73,3 @@ if __name__ == '__main__':
     # 训练集
     data_set = [[(3, 3), 1], [(4, 3), 1], [(1, 1), -1]]
     perceptron.train(data_set)
-
-
-
-
-
-
-
-
