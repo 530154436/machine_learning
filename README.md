@@ -8,7 +8,7 @@
 - [x] 第2章 感知器模型(Perceptron)
 - [ ] 第3章 K近邻法(KNearestNeighbors)
 - [x] 第4章 朴素贝叶斯(NaiveBayes)
-- [ ] 第5章 决策树(DecisonTree)
+- [x] 第5章 决策树(DecisonTree)
 - [ ] 第6章 逻辑斯提回归与最大熵模型(LogisticRegression)
 - [ ] 第7章 支持向量机(SVM)
 - [ ] 第8章 提升方法(AdaBoost)

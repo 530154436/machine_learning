@@ -2,6 +2,10 @@
 # -*- coding:utf-8 -*-
 from math import exp,log
 
+'''
+    基于朴素贝叶斯算法的简易情感分析
+'''
+
 class LaplaceEstimate():
     '''
     拉普拉斯平滑的贝叶斯估计 （对应一个分类）
@@ -21,19 +25,20 @@ class LaplaceEstimate():
             freq = self.key_freq[key]
         return float(freq / self.total)
 
-    def add(self, word):
-        ''' 增加一个词 '''
-        freq = 1
-        if word in self.key_freq:
-            freq += self.key_freq[word]
-        self.key_freq[word] = freq
-        self.total += 1
+    def add_words(self, words):
+        ''' 增加一句话 '''
+        for word in words:
+            freq = 1
+            if word in self.key_freq:
+                freq += self.key_freq[word]
+            self.key_freq[word] = freq
+            self.total += 1
 
 class NaiveBayes():
     ''' 朴素贝叶斯 '''
     def __init__(self, lambda1):
         self.tag_prob = {}   # 先验概率：标签(LaplaceEstimate对象)-概率
-        self.total = 0      # 总词频
+        self.total = 0       # 总词频
         self.lambda1 = lambda1
 
     def getTagPro(self, tag):
@@ -41,13 +46,16 @@ class NaiveBayes():
             return float(self.tag_prob[tag].getSum() / self.total)
 
     def train(self, data):
+        '''
+        训练
+        :param data:  [[word1, word2],tag]
+        :return:
+        '''
         for words, tag in data:
             if tag not in self.tag_prob:
                 self.tag_prob[tag] = LaplaceEstimate(self.lambda1)
-            for word in words:
-                self.tag_prob[tag].add(word)
+                self.tag_prob[tag].add_words(words)
                 self.total += 1
-
         print(self.tag_prob['pos'].key_freq, self.tag_prob['pos'].getSum())
         print(self.tag_prob['neg'].key_freq, self.tag_prob['neg'].getSum())
 
@@ -57,7 +65,7 @@ class NaiveBayes():
             prob = log(self.tag_prob[tag].getSum()) - log(self.total)    # P(Y=c)
             print('p(y=ck)',tag, prob, exp(prob))
             for word in data:
-                prob += log(self.tag_prob[tag].getProb(word))           # p(xj=a|c)
+                prob += log(self.tag_prob[tag].getProb(word))            # p(xj=a|c)
                 print(word, self.tag_prob[tag].getProb(word), log(self.tag_prob[tag].getProb(word)) )
             tag_prob[tag] = prob
             print(tag, prob, exp(prob), '\n')
@@ -95,5 +103,10 @@ if __name__ == '__main__':
     sentiment = Sentiment(NaiveBayes(lambda1=0.1))
     pos_data = ['好吃 有意思 很好','有意思 很好', '真棒 点赞']
     neg_data = ['难吃 差劲', '垃圾', '吃屎', '差劲']
+
+    # 最终概率*4、lambda1=0, 即为书上答案
+    # pos_data = ['1 M', '1 S', '2 M', '2 L', '2 L', '3 L', '3 M', '3 M', '3 L']
+    # neg_data = ['1 S', '1 M', '1 S', '2 S', '2 M', '3 L']
+
     sentiment.train(pos_data, neg_data)
-    print(sentiment.classify('优秀 好吃'))
+    print(sentiment.classify('好吃'))
