@@ -1,4 +1,7 @@
+# /usr/bin/env python3
+# -*- coding:utf-8 -*-
 from math import log
+import pickle
 
 '''
     熵、条件熵、信息增益(互信息) 李航-统计学习方法(p60-63)、参考 ml in action
@@ -45,6 +48,9 @@ def splitDataSet(data_set, i, value):
 def calcShannonEnt(data_set, feature_num=-1):
     '''
     经验熵（香农熵），即对数据D的经验熵: H(D) = -∑ |C|/|D| * log(|C|/|D|)
+    :data_set: [[f1,f2,..,fn,label1],[]]
+    :param feature_num:
+    :return:
     '''
     N = len(data_set)    # 样本容量
     label_count = {}     # 标签-数量
@@ -143,10 +149,12 @@ def majorityCount(label_list):
         if label not in label_count:
             label_count[label] = 0
         label_count[label] += 1
-    sorted_label_count = sorted(label_count.items(), key=lambda x : x[1], reverse=True)
+    sorted_label_count \
+        = sorted(label_count.items(), key=lambda x : x[1], reverse=True)
     return sorted_label_count[0][0]
 
-def createTree(data_set, features, choseBestFeatureFunc=chooseBestFeatureToSplitByID3):
+def createTree( data_set, features,
+                choseBestFeatureFunc=chooseBestFeatureToSplitByID3):
     '''
     递归创建决策树
     :param data_set:                数据集
@@ -156,23 +164,78 @@ def createTree(data_set, features, choseBestFeatureFunc=chooseBestFeatureToSplit
     '''
     sample_labels = [ example[-1] for example in data_set ]
     sample_labels_unique = set(sample_labels)
-    if len(sample_labels_unique) == 1:                  # (1)数据集 D 所有实例属于同一类Ck，返回Ck
+
+    # (1)数据集 D 所有实例属于同一类Ck，返回Ck
+    if len(sample_labels_unique) == 1:
         return sample_labels[0]
-    if len(data_set[0]) == 1:                           # (2)特征集 A 为空，返回实例数最大的类Ck
+
+    # (2)特征集 A 为空，返回实例数最大的类Ck
+    if len(data_set[0]) == 1:
         return majorityCount(sample_labels)
-    best_feature_num = choseBestFeatureFunc(data_set)   # (3)选择信息增益最大的特征 Ag
+
+    # (3)选择信息增益最大的特征 Ag
+    best_feature_num = choseBestFeatureFunc(data_set)
     best_feature = features[best_feature_num]
-    # del features[best_feature_num]
+
     myTree = {best_feature: {}}
     sample_features = [sample[best_feature_num] for sample in data_set]
     sample_features_unique = set(sample_features)
+
     for value in sample_features_unique:
-        sub_set = splitDataSet(data_set, best_feature_num, value)     # 根据Ag特征划分子集 Di，不含i列
-        # sub_features = features[:]                                  # 复制类标签，保证递归调用时，不改变原始列表的内容
-        sub_features = features[:best_feature_num]                    # 子集 Di 对应的特征集 A-{Ag}
+        # 根据Ag特征划分子集 Di，不含i列
+        sub_set = splitDataSet(data_set, best_feature_num, value)
+
+        # 子集 Di 对应的特征集 A-{Ag}
+        sub_features = features[:best_feature_num]
         sub_features.extend(features[best_feature_num+1:])
-        myTree[best_feature][value] = createTree(sub_set, sub_features, choseBestFeatureFunc)
+        myTree[best_feature][value] \
+            = createTree(sub_set, sub_features, choseBestFeatureFunc)
     return myTree
+
+def classify(input_tree, features, test_vec):
+    '''
+    预测算法，主要是根据 input_tree->特征维度i->树的遍历
+    :param input_tree:  决策树
+    :param featLabels:    特征标签列表
+    :param test_vec:   测试数据
+    :return:  分类标签
+    '''
+    item = [ (k,v) for k,v in input_tree.items()][0]
+    first_str = item[0]     # 取特征 Ai (根节点)
+    featIndex = features.index(first_str)  # 特征 Ai 对应列 i
+    second_dict = item[1]   # 取孩子节点(dict)
+    value = second_dict.get(test_vec[featIndex])  # 特征 Ai 对应的值
+    if isinstance(value, dict) :  # 递归
+        class_label = classify(value, features, test_vec)
+    else:
+        class_label = value
+    return class_label
+
+def saveTree(input_tree, file_path=''):
+    '''
+    储存决策树模型
+    :param input_tree:
+    :param file_path:
+    :return:
+    '''
+    fw = open(file_path, 'wb')
+    print(input_tree)
+    pickle.dump(input_tree, fw)
+    fw.close()
+    return True
+
+
+def loadTree(input_tree, file_path=''):
+    '''
+    加载决策树模型
+    :param input_tree:
+    :param file_path:
+    :return:
+    '''
+    fr = open(file_path, 'rb')
+    tree = pickle.load(fr)
+    fr.close()
+    return tree
 
 def test():
     data_set, feature_names = createDataSet()
@@ -199,6 +262,12 @@ def test():
 
     tree_c45 = createTree(data_set, feature_names, choseBestFeatureFunc=chooseBestFeatureToSplitByC45)
     print(tree_c45)
+
+    class_label = classify(tree_id3, feature_names, ['青年', '是', '否', '一般'])
+    print(class_label)
+
+    print(saveTree(tree_id3, file_path='decision_tree.pkl'))
+    print(loadTree(tree_id3, file_path='decision_tree.pkl'))
 
 if __name__ == '__main__':
     test()

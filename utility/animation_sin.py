@@ -1,7 +1,5 @@
 # -*- coding:utf-8 -*-
 # Filename: sin.py
-# Author：hankcs
-# Date: 2015/1/30 22:41
 import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib import animation
