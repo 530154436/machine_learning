@@ -9,13 +9,24 @@
 - [ ] 第3章 K近邻法(KNearestNeighbors)
 - [x] 第4章 朴素贝叶斯(NaiveBayes)
 - [x] 第5章 决策树(DecisonTree)
-- [ ] 第6章 逻辑斯提回归与最大熵模型(LogisticRegression)
+- [x] 第6章 逻辑斯提回归与最大熵模型(LogisticRegression)
 - [ ] 第7章 支持向量机(SVM)
-- [ ] 第8章 提升方法(AdaBoost)
+- [x] 第8章 提升方法(AdaBoost)
 - [ ] 第9章 EM算法(EM)
 - [ ] 第10章 隐马尔科夫模型(HMM)
 - [ ] 第11章 条件随机场(CRF)
 
+#### 1. 树模型
+- [x] 实现决策树ID3、C4.5算法
+- [x] 实现Cart(回归树)
+- [x] 预/后剪枝算法
+- [ ] 实现Cart模型树(顺便实现线性回归)
+- [x] 实现AdaBoost算法
+- [x] 回归问题的提升树算法
+- [x] 梯度提升(GBDT)算法
+- [ ] 实现随机森林(西瓜书8.3 p178)
+- [ ] 了解、尝试实现XGBoost
+- [ ] 整合XGBoost、LightGBM、CatBoost三个工具包
 ### 引用
 >[1]https://github.com/wzyonggege/statistical-learning-method
 

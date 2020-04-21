@@ -35,7 +35,6 @@ def plotSigmoid(sigmoid):
     plt.ylabel('Sigmoid(x)')
     plt.plot(x, y)
     plt.show()
-    plt.show()
 
 def plotBestFit(data_set, weights):
     '''

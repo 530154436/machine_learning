@@ -1,11 +1,22 @@
 # /usr/bin/env python3
 # -*- coding:utf-8 -*-
+import numpy as np
 from plot_all import *
 
-TRAIN_DATA_SET = './data/testSet.txt'
-PRINT_PATTERN = 'Iteration {}, Error: {}'
+TRAIN_DATA_SET = './data/job.txt'
+PRINT_PATTERN = 'Iteration {}, Loss value: {}'
 
 weights_history = []
+
+class LogisticRegression(object):
+    def __init__(self):
+        self.w = None
+        self.b = 0
+
+    def fit(self, x_train, y_train):
+        x = np.mat(x_train, dtype=np.float32)
+        y = np.mat(y_train, dtype=np.float32)
+
 
 def loadDataSet(path, separator='\t'):
     '''
@@ -17,8 +28,11 @@ def loadDataSet(path, separator='\t'):
     data_set = []; label_set = []
     for line in file:
         line = line.strip().split(separator)
-        data_set.append([1, float(line[0]), float(line[1])])
-        label_set.append(int(line[2]))
+        x = [1]
+        x1 = [float(line[i]) for i in range(len(line)-1)]
+        x.extend(x1)
+        data_set.append(x)
+        label_set.append(int(line[-1]))
     return data_set,label_set
 
 def sigmoid(X):
@@ -74,13 +88,13 @@ def stochasticGradientDescent(data_mat, class_labels,
         data_index = list(range(m))
         for i in range(m):
             alpha = 4/(1.0+iteration+i)*0.01                        # alpha 随迭代次数更新
-            randIndex = int(np.random.uniform(0, len(data_index)))  # 随机样本 服从 均匀分布
+            randIndex = int(np.random.uniform(0, len(data_index)))  # 随机样本 服从均匀分布时熵最大
             h_i = sigmoid(np.sum(data_matrix[randIndex] * weights)) # logistic函数sigmoid
             delta = label_matrix[randIndex] - h_i                   # yi - h(xi)
             weights+=alpha*data_matrix[randIndex].transpose()*delta # w:=w+alpha*xi*(yi-h(xi))
             inner = 1/2*delta**2                                    # 1/2 * (yi-h(xi)^2
             del(data_index[randIndex])                              # 删除已经用过的样本
-        if iteration%4==0:
+        if iteration%100==0:
             weights_history.append(np.copy(weights))
         iteration += 1
         print(PRINT_PATTERN.format(iteration, inner))
@@ -92,9 +106,9 @@ def classifyVector(inX, weights):
     '''预测'''
     prob = sigmoid(sum(inX*weights))
     if prob > 0.5:
-        return 1.0
+        return 1
     else:
-        return 0.0
+        return 0
 
 def test():
     # 加载数据集
@@ -103,19 +117,18 @@ def test():
     # sigmoid 函数
     # plotSigmoid(sigmoid)
 
-    # 散点图
-    # plotBestFit(None)
-
     # 批梯度上升优化算法
-    # weights = batchGradientDescent(data_mat, class_labels, alpha=0.001, epsilon=0.5, max_iteration=500)
+    weights = batchGradientDescent(data_mat, class_labels, alpha=0.001, epsilon=0.01, max_iteration=100)
     # 动画可视化
     # plotAnimation(TRAIN_DATA_SET, weights_history, name='gradAscent.gif')
 
+    print(classifyVector(np.mat([[1, 1,2,-2]]),weights))
 
     # 随机梯度上升优化算法
-    weights = stochasticGradientDescent(data_mat, class_labels, alpha=0.001, epsilon=0.0001, max_iteration=500)
-    # 动画可视化
-    plotAnimation(TRAIN_DATA_SET, weights_history, name='stochasticGradAscent.gif')
+    # weights = stochasticGradientDescent(data_mat, class_labels, alpha=0.001, epsilon=0.0001, max_iteration=500)
+    # # 动画可视化
+    # plotAnimation(TRAIN_DATA_SET, weights_history, name='stochasticGradAscent.gif')
+
 
 if __name__ == '__main__':
     test()

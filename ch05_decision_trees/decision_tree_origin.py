@@ -169,7 +169,7 @@ def createTree( data_set, features,
     if len(sample_labels_unique) == 1:
         return sample_labels[0]
 
-    # (2)特征集 A 为空，返回实例数最大的类Ck
+    # (2)特征集 A 为空，返回实例数最大的类Ck(只有标签列)
     if len(data_set[0]) == 1:
         return majorityCount(sample_labels)
 
@@ -240,7 +240,7 @@ def loadTree(input_tree, file_path=''):
 def test():
     data_set, feature_names = createDataSet()
     sub_set = splitDataSet(data_set, 0, '中年')
-    print(sub_set)
+    # print(sub_set)
 
     shannonEnt = calcShannonEnt(data_set)
     print('信息熵 H(D) ={}\n'.format(shannonEnt))
@@ -263,11 +263,35 @@ def test():
     tree_c45 = createTree(data_set, feature_names, choseBestFeatureFunc=chooseBestFeatureToSplitByC45)
     print(tree_c45)
 
-    class_label = classify(tree_id3, feature_names, ['青年', '是', '否', '一般'])
-    print(class_label)
 
-    print(saveTree(tree_id3, file_path='decision_tree.pkl'))
-    print(loadTree(tree_id3, file_path='decision_tree.pkl'))
+    print('ID3算法')
+    x_test1 = ['青年', '否', '是', '一般']
+    class_label = classify(tree_id3, feature_names, x_test1)
+    print(x_test1, class_label)
+
+    x_test1 = ['青年', '是', '否', '好']
+    class_label = classify(tree_id3, feature_names, x_test1)
+    print(x_test1, class_label)
+
+    x_test1 = ['老年', '否', '是', '一般']
+    class_label = classify(tree_id3, feature_names, x_test1)
+    print(x_test1, class_label)
+
+    print('C4.5算法')
+    x_test1 = ['青年', '否', '是', '一般']
+    class_label = classify(tree_c45, feature_names, x_test1)
+    print(x_test1, class_label)
+
+    x_test1 = ['青年', '是', '否', '好']
+    class_label = classify(tree_c45, feature_names, x_test1)
+    print(x_test1, class_label)
+
+    x_test1 = ['老年', '否', '是', '一般']
+    class_label = classify(tree_c45, feature_names, x_test1)
+    print(x_test1, class_label)
+
+    # print(saveTree(tree_id3, file_path='decision_tree.pkl'))
+    # print(loadTree(tree_id3, file_path='decision_tree.pkl'))
 
 if __name__ == '__main__':
     test()
