@@ -24,8 +24,8 @@
 - [x] 实现AdaBoost算法
 - [x] 回归问题的提升树算法
 - [x] 梯度提升(GBDT)算法
-- [ ] 实现随机森林(西瓜书8.3 p178)
-- [ ] 了解、尝试实现XGBoost
+- [x] 实现随机森林(西瓜书8.3 p178)
+- [x] 了解、尝试实现XGBoost
 - [ ] 整合XGBoost、LightGBM、CatBoost三个工具包
 ### 引用
 >[1]https://github.com/wzyonggege/statistical-learning-method

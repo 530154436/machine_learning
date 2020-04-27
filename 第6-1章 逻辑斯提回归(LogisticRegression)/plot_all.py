@@ -27,7 +27,7 @@ def plotSigmoid(sigmoid):
     ax.axis([-5,5,0,1])
     plt.xlabel('x')
     plt.ylabel('Sigmoid(x)')
-    plt.plot(x,y)
+    plt.plot(x, y)
 
     ax = plt.subplot(2, 1, 2)
     ax.axis([-50, 50, 0, 1])

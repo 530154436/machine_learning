@@ -138,7 +138,6 @@ class CartRegression(object):
         :param x:   特征集
         :param y:   标签集
         '''
-        # 递归结束条件
         best_feat, best_val = self.choose_best_split(x,y, epsilon=epsilon, min_samples=min_samples)
         if best_feat==None: return best_val
 
