@@ -109,4 +109,4 @@ if __name__ == '__main__':
     root = BiNode(left=BiNode(xx=1, id=1, dd=1, yy=111),
                   right=BiNode(xx=2, id=2, dd=2, yy=222),
                   xx=0, id=0, dd=0.12, yy=333)
-    BiTree.plot(root, path='imgs/test.png')
+    BiTree.plot(root, path='data/test.png')

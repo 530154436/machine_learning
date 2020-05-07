@@ -15,6 +15,17 @@
 - [ ] 第9章 EM算法(EM)
 - [ ] 第10章 隐马尔科夫模型(HMM)
 - [ ] 第11章 条件随机场(CRF)
+- [ ] 第12章 统计学习方法总结
+- [ ] 第13章 无监督学习概论
+- [ ] 第14章 聚类方法
+- [x] 第15章 奇异值分解
+- [ ] 第16章 主成分分析
+- [ ] 第17章 潜在语义分析
+- [ ] 第18章 概率潜在语义分析
+- [ ] 第19章 马尔可夫链蒙特卡罗法
+- [ ] 第20章 潜在狄利克雷分配
+- [ ] 第21章 PageRank算法
+- [ ] 第22章 无监督学习方法总结
 
 #### 1. 树模型
 - [x] 实现决策树ID3、C4.5算法
@@ -27,6 +38,41 @@
 - [x] 实现随机森林(西瓜书8.3 p178)
 - [x] 了解、尝试实现XGBoost
 - [ ] 整合XGBoost、LightGBM、CatBoost三个工具包
+
+#### 2. 矩阵分解(MF)
+> https://zhuanlan.zhihu.com/p/35262187
+首先因为低秩假设，一个用户可能有另外一个用户与他线性相关（物品也一样），所以用户矩阵完全可以用一个比起原始UI矩阵更低维的矩阵表示，pureSVD就可降维得到两个低维矩阵，但是此方法要求原始矩阵稠密，因此要填充矩阵（只能假设值），因此有了funkSVD直接分解得到两个低维矩阵。
+因为用户,物品的偏置爱好问题所以提出了biasSVD。
+因为用户行为不仅有评分，且有些隐反馈（点击等），所以提出了SVD++。
+因为假设用户爱好随时间变化，所以提出了timeSVD。
+因为funkSVD分解的两个矩阵有负数，现实世界中不好解释，所以提出了NMF。
+为了符合TopN推荐，所以提出了WMF。推翻低秩假设，提出了LLORMA（局部低秩）。
+因为以上问题都未解决数据稀疏和冷启动问题，所以需要用上除了评分矩阵之外的数据来使推荐更加丰满，即加边信息。
+
+- [x] SVD (统计学习方法第15章 pureSVD)
+- [ ] 实现Netflix Prize FunkSVD ( Latent Factor Model(LFM))
+- [ ] BiasSVD (加入偏移项后的 Funk-SVD)
+- [ ] PMF(概率矩阵分解)，FunkSVD的概率解释版本
+- [ ] 实现Koren's SVD++
+- [ ] NMF(非负矩阵分解)
+
+#### 3. FM模型
+- [ ] 实现FM
+- [ ] 实现FFM
+- [ ] 实现DeepFM
+- [ ] 实现NFM
+- [ ] 实现AFM
+- [ ] 实现xDeepFM
+
+
+推荐系统中的矩阵分解技术 http://www.52nlp.cn/juzhenfenjiedatagrand
+树模型：GBDT，XGBoost，LightGBM，CatBoost，NGBoost
+Attention模型：DIN，DIEN，DSIN，Transformer，BERT
+Embedding：Word2vec，DeepWalk, Node2Vec，GCN
+时间序列：AR, MA, ARMA ,ARIMA, LSTM
+
+推荐系统 http://xtf615.com/2018/05/03/recommender-system-survey/
+
 ### 引用
 >[1]https://github.com/wzyonggege/statistical-learning-method
 

@@ -3,13 +3,13 @@
 import xgboost
 import uuid
 import numpy as np
-import pandas as pd
 from trees.tree import BiNode,BiTree
 from trees.loss import LossFunction,CrossEntropy
 # xgboost.XGBClassifier
 
 '''
     Introduction to Boosted Trees 陈天奇 slice
+    XGBoost官网                          https://xgboost.readthedocs.io/en/latest/parameter.html#general-parameters
     XGBoost超详细推导，终于有人讲明白了！     https://cloud.tencent.com/developer/article/1513111
     xgboost原理分析以及实践                 https://blog.csdn.net/qq_22238533/article/details/79477547
 *** xgboost的推导过程及训练方法             https://mzz.pub/2019/12/13/数据挖掘/xgboost/
@@ -144,7 +144,7 @@ class MyXGBoost(object):
                 gain = self.cal_gain(G_l, G_r, H_l, H_r)
                 print(f'Gain {f_idx+1,sp} = {np.round(gain, decimals=4)}')
 
-                if gain>=bst_gain:
+                if gain>=bst_gain: # >
                     bst_gain = gain
                     bst_idx = f_idx
                     bst_val = sp
@@ -205,7 +205,7 @@ class MyXGBoost(object):
             y_pred = self.predict(x, iteration=t)
             print(t, 'y_pred', y_pred)
 
-            BiTree.plot(root, f'doc/xgboost_{t}.png')
+            BiTree.plot(root, f'data/xgboost_{t}.png')
 
     def walk_to_leaf(self, root:XGBNode, x_with_index:np.array, y_hat:np.array):
         '''
@@ -219,7 +219,7 @@ class MyXGBoost(object):
 
         # 叶子节点 => 直接返回权值
         if root.left==None and root.right==None:
-            y_hat[x_with_index[:, -1].astype(int)] = root.weight
+            y_hat[x_with_index[:, 0].astype(int)] = root.weight
             return
 
         # 遍历左右子树
@@ -241,7 +241,7 @@ class MyXGBoost(object):
         # 标记x每个样本的序号
         idx = np.zeros((m, 1))
         idx[:, 0] = range(m)
-        x_with_idx = np.hstack([x, idx])
+        x_with_idx = np.hstack([idx, x])
 
         for t in range(iteration):
             y_hat_t = np.zeros(m)
@@ -266,6 +266,7 @@ class MyXGBClassifier(MyXGBoost):
 
 
 if __name__ == '__main__':
+    import pandas as pd
     x_y = pd.DataFrame(
         [[1, 1, -5, 0],
          [2, 2, 5, 0],

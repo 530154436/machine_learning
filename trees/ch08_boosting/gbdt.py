@@ -47,7 +47,7 @@ class GBDT(object):
             #     => f_{m-1}(x_i) 对求偏导 => c_{mj} = \frac {\sum {y_i - f_{m-1}(x_i)}} {N_{mj}})
             dt = tree.DecisionTreeRegressor()
             dt.fit(x, rmi)
-            print(f'm={m}, rmi={list(rmi.round(decimals=4))}, loss={self.loss.loss(y, y_hat).round(decimals=4)}')
+            print(f'm={m}, rmi={list(rmi.round(decimals=4))}, loss={self.loss._loss(y, y_hat).round(decimals=4)}')
 
             # 更新 f_m(x)
             self.f_mx.append(dt)

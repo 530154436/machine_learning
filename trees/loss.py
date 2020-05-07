@@ -3,7 +3,7 @@
 import numpy as np
 
 '''
-    损失函数工具包 (i,j)=(第i个样本,第j个特征), N为样本容量
+    树模型损失函数工具包 (i,j)=(第i个样本,第j个特征), N为样本容量
 '''
 
 class LossFunction(object):
@@ -23,10 +23,13 @@ class LossFunction(object):
 class SquaresError(LossFunction):
     '''
     平方损失函数:
-        \hat{y_i} = F_m(x_i) = \sum_{i=1}^m f_m(x_i)
-        L(y_i, \hat{y_i}) =  1/2 (y_i-\hat{y_i})^2
 
-        Loss = \sum_{i=1}^N L(y_i, \hat{y_i})
+    [x]GBDT
+    \hat{y_i} = F_m(x_i) = \sum_{i=1}^m f_m(x_i)
+    L(y_i, \hat{y_i}) =  1/2 (y_i-\hat{y_i})^2
+
+    Loss = \sum_{i=1}^N L(y_i, \hat{y_i})
+
     '''
     def __init__(self):
         LossFunction.__init__(SquaresError)
