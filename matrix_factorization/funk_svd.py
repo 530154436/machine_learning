@@ -21,26 +21,39 @@ class FunkSVD(object):
         self.loss = np.inf
         self.P = None           # (u,k): 每一行代表某个人对于不同特征的热爱程度.   =>  X(m,n) = P(m,k)* Q^T(k,n)
         self.Q = None           # (j,k): 每一行代表某个事物拥有这个特征的程度.
-        self.u_mapping = None   # 用户ID映射
-        self.j_mapping = None   # 物品ID映射
 
+        # 样本相关的统计
         self.global_mean = None # y_true的均值
         self.N = 0              # 样本容量
+        self.ui = {}            # 用户评分的物品集合 <uid, list[jid1,jid2]>
 
     def prepare_data(self, data:np.array, is_triple):
         ''' 初始化参数、输入 '''
         if is_triple:
             uids = np.unique(data[:, 0])
             jids = np.unique(data[:, 1])
-            self.global_mean = np.mean(data[:, 2])
-            self.u_mapping = {uid: idx for idx, uid in enumerate(uids)}
-            self.j_mapping = {jid: idx for idx, jid in enumerate(jids)}
             m, n = uids.size, jids.size
+
+            # 统计评分均值
+            self.global_mean = np.mean(data[:, 2])
+
+            # 用户 点评/浏览/购买 的物品集合 (隐式反馈)
+            for u,i,r in data:
+                if u not in self.ui:
+                    self.ui[u] = set()
+                self.ui[u].add(i)
+            for k,v in self.ui.items():
+                self.ui[k] = list(v)
+
+            # 样本容量
+            self.N = data.shape[0]
         else:
             self.global_mean = np.mean(data)
             m, n = data.shape
 
-        self.N = data.shape[0]
+            # 样本容量
+            self.N = m*n
+
         return m,n
 
     def init_weights(self, m, n):
@@ -48,28 +61,16 @@ class FunkSVD(object):
         self.P = np.random.normal(size=(m, self.n_factors))
         self.Q = np.random.normal(size=(n, self.n_factors))
 
-    def sgd(self, u, j, y_true, y_hat):
+    def sgd(self, u, j, y_true):
         '''
         梯度下降更新参数
         :param u:       用户u
         :param j:       物品j
         :param y_true:  评分
         '''
-        err = y_true - y_hat
+        err = y_true - self.predict(u, j)
         self.P[u] += self.learning_rate * (err * self.Q[j] - self._lambda * self.P[u])
         self.Q[j] += self.learning_rate * (err * self.P[u] - self._lambda * self.Q[j])
-
-    def _loss(self, u, j, y_true):
-        '''
-        拟合一个样本并返回损失值
-        :param u:       用户u
-        :param j:       物品j
-        :param y_true:  真实评分
-        :return: 损失值
-        '''
-        y_hat = self.predict(u, j)
-        self.sgd(u, j, y_true, y_hat)
-        return np.square(y_true - y_hat)
 
     def fit(self, data:np.array, is_triple=True):
         '''
@@ -90,18 +91,24 @@ class FunkSVD(object):
                 if is_triple:
                     # ID映射
                     u, j, y_true = (data[i, xi] for xi in range(3))
-                    u = self.u_mapping.get(u)
-                    j = self.j_mapping.get(j)
-
-                    loss += self._loss(u, j, y_true)
+                    self.sgd(u, j, y_true)
+                    loss += np.square(y_true - self.predict(u, j))
                 else:
                     for j in range(data.shape[1]):
                         u, y_true = i, data[i,j]
-                        loss += self._loss(u, j, y_true)
+                        self.sgd(u, j, y_true)
+                        loss += np.square(y_true - self.predict(u, j))
             epoch += 1
             self.loss = loss
-            print(f'Epoch {epoch}, loss={self.loss}')
+            mse = self.loss/self.N
+            print(f'Epoch {epoch}, loss={self.loss}, MSE={mse}, RMSE={np.sqrt(mse)}')
         print(f'Train Done, Q.shape={self.Q.shape}, P.shape={self.P.shape}')
+
+    def _know_u(self, u:int):
+        return u!=None and u>=0 and u<self.P.shape[0]
+
+    def _know_j(self, j:int):
+        return j!=None and j>=0 and j<self.Q.shape[0]
 
     def predict(self, u:int, j:int):
         '''
@@ -109,6 +116,7 @@ class FunkSVD(object):
         :param u:   用户
         :param j:   物品
         '''
-        if u==None and j==None:
-            return
-        return np.dot(self.P[u, :], self.Q[j, :])
+        if self._know_u(u) and self._know_j(j):
+            return np.dot(self.P[u, :], self.Q[j, :])
+        else:
+            return None

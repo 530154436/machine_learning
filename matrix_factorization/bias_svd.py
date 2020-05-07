@@ -26,14 +26,14 @@ class BiasSVD(FunkSVD):
         self.bu = np.zeros(m, np.double)
         self.bj = np.zeros(n, np.double)
 
-    def sgd(self, u, j, y_true, y_hat):
+    def sgd(self, u, j, y_true):
         '''
         梯度下降更新参数
         :param u:       用户u
         :param j:       物品j
         :param y_true:  评分
         '''
-        e_uj = y_true - y_hat
+        e_uj = y_true - self.predict(u, j)
         self.P[u] += self.learning_rate * (e_uj * self.Q[j] - self._lambda * self.P[u])
         self.Q[j] += self.learning_rate * (e_uj * self.P[u] - self._lambda * self.Q[j])
         self.bu[u] += self.learning_rate * (e_uj - self._lambda * self.bu[u])
@@ -45,6 +45,17 @@ class BiasSVD(FunkSVD):
         :param u:   用户
         :param j:   物品
         '''
-        if u==None and j==None:
-            return
-        return np.dot(self.P[u, :], self.Q[j, :]) + self.mu + self.bu[u] + self.bj[j]
+        rating = self.mu
+        know_u = self._know_u(u)
+        know_j = self._know_j(j)
+
+        if know_u:
+            rating += self.bu[u]
+
+        if know_j:
+            rating += self.bj[j]
+
+        if know_u and know_j:
+            rating += np.dot(self.P[u, :], self.Q[j, :])
+
+        return rating

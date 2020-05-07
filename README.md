@@ -43,9 +43,8 @@
 #### 2. 矩阵分解(MF)
 - [x] SVD (统计学习方法第15章 pureSVD)
 - [x] 实现Netflix Prize FunkSVD ( Latent Factor Model(LFM))
-- [x] BiasSVD (加入偏移项后的 Funk-SVD)
-- [ ] PMF(概率矩阵分解)，FunkSVD的概率解释版本
-- [ ] 实现Koren's SVD++
+- [x] BiasSVD (加入偏置项后的 Funk-SVD)
+- [x] 实现Koren's SVD++
 - [ ] NMF(非负矩阵分解)
 
 > https://zhuanlan.zhihu.com/p/35262187
