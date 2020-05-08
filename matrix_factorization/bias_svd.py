@@ -18,15 +18,18 @@ class BiasSVD(FunkSVD):
         self.bu = None  # bu 表示的是用户u的偏置
         self.bj = None  # bj表示的是物品j的偏置
 
-    def init_weights(self, m, n):
+    def init_weights(self, train_set):
         ''' 初始化参数 '''
-        self.P = np.random.normal(size=(m, self.n_factors))
-        self.Q = np.random.normal(size=(n, self.n_factors))
-        self.mu = self.global_mean
-        self.bu = np.zeros(m, np.double)
-        self.bj = np.zeros(n, np.double)
+        n_users = train_set.n_users
+        n_items = train_set.n_items
 
-    def sgd(self, u, j, y_true):
+        self.mu = train_set.global_mean
+        self.P = np.random.normal(size=(n_users, self.n_factors))
+        self.Q = np.random.normal(size=(n_items, self.n_factors))
+        self.bu = np.zeros(n_users, np.double)
+        self.bj = np.zeros(n_items, np.double)
+
+    def sgd(self, u, j, y_true, train_set):
         '''
         梯度下降更新参数
         :param u:       用户u

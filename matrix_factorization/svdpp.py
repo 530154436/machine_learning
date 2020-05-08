@@ -16,26 +16,29 @@ class SVDpp(BiasSVD):
         self.yi = None              # 用户u对商品i的隐式偏好 => 体现在每个物品上
         self.u_implicit_fb = None   # 用户u对商品i(特征)的隐式偏好 => 发生互动的物品偏好求和归一
 
-    def init_weights(self, m, n):
+    def init_weights(self, train_set):
         ''' 初始化参数 '''
-        self.mu = self.global_mean
-        self.bu = np.zeros(m, np.double)
-        self.bj = np.zeros(n, np.double)
+        n_users = train_set.n_users
+        n_items = train_set.n_items
 
-        self.P = np.random.normal(size=(m, self.n_factors))
-        self.Q = np.random.normal(size=(n, self.n_factors))
+        self.mu = train_set.global_mean
+        self.bu = np.zeros(n_users, np.double)
+        self.bj = np.zeros(n_items, np.double)
+
+        self.P = np.random.normal(size=(n_users, self.n_factors))
+        self.Q = np.random.normal(size=(n_items, self.n_factors))
 
         # 隐式反馈
-        self.yi = np.random.normal(size=(n, self.n_factors))
-        self.u_implicit_fb = np.random.normal(size=(m, self.n_factors))
+        self.yi = np.random.normal(size=(n_items, self.n_factors))
+        self.u_implicit_fb = np.random.normal(size=(n_users, self.n_factors))
 
         # 用户对物品i的偏好集合、并计算用户的隐式反馈、注意:ui是物品的id列表
-        for u in range(m):
-            ui = self.ui[u]
+        for u in range(n_users):
+            ui = train_set.ui[u]
             ui_sqrt = np.sqrt(len(ui))
             self.u_implicit_fb[u] = np.sum(self.yi[ui], axis=0) / ui_sqrt
 
-    def sgd(self, u, j, y_true):
+    def sgd(self, u, j, y_true, train_set):
         '''
         梯度下降更新参数
         :param u:       用户u
@@ -54,12 +57,12 @@ class SVDpp(BiasSVD):
         self.bj[j] += self.learning_rate * (e_uj - self._lambda * self.bj[j])
 
         # 更新隐式因子
-        ui = self.ui[u]
-        ui_sqrt = np.sqrt(len(ui))
-        self.yi[ui] = self.learning_rate * (e_uj * self.Q[j] / ui_sqrt - self._lambda * self.yi[ui])
+        i_list = train_set.ui[u]
+        ui_sqrt = np.sqrt(len(i_list))
+        self.yi[i_list] = self.learning_rate * (e_uj * self.Q[j] / ui_sqrt - self._lambda * self.yi[i_list])
         # for i in ui:
         #     self.yi[i] = self.learning_rate * (e_uj * self.Q[j] / ui_sqrt - self._lambda * self.yi[i])
-        self.u_implicit_fb[u] = np.sum(self.yi[ui], axis=0) / ui_sqrt
+        self.u_implicit_fb[u] = np.sum(self.yi[i_list], axis=0) / ui_sqrt
 
     def predict(self, u:int, j:int):
         '''

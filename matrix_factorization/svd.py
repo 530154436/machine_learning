@@ -12,3 +12,9 @@ We Recommend a Singular Value Decomposition http://www.ams.org/publicoutreach/fe
 SVD（奇异值分解）小结 https://www.cnblogs.com/endlesscoding/p/10033527.html
 SVD（奇异值分解）Python实现 https://www.cnblogs.com/endlesscoding/p/10058532.html
 '''
+import numpy as np
+
+u, s, vh = np.linalg.svd([[1,1],[2,2],[0,0]])
+print(u)
+print(s)
+print(vh)
