@@ -39,31 +39,20 @@
 - [x] 了解、尝试实现XGBoost
 - [ ] 整合XGBoost、LightGBM、CatBoost三个工具包
 
-
 #### 2. 矩阵分解(MF)
 - [x] SVD (统计学习方法第15章 pureSVD)
 - [x] 实现Netflix Prize FunkSVD ( Latent Factor Model(LFM))
 - [x] BiasSVD (加入偏置项后的 Funk-SVD)
 - [x] 实现Koren's SVD++
-- [ ] NMF(非负矩阵分解)
+- [x] NMF(非负矩阵分解)
 
-> https://zhuanlan.zhihu.com/p/35262187
-首先因为低秩假设，一个用户可能有另外一个用户与他线性相关（物品也一样），所以用户矩阵完全可以用一个比起原始UI矩阵更低维的矩阵表示，pureSVD就可降维得到两个低维矩阵，但是此方法要求原始矩阵稠密，因此要填充矩阵（只能假设值），因此有了funkSVD直接分解得到两个低维矩阵。
-因为用户,物品的偏置爱好问题所以提出了biasSVD。
-因为用户行为不仅有评分，且有些隐反馈（点击等），所以提出了SVD++。
-因为假设用户爱好随时间变化，所以提出了timeSVD。
-因为funkSVD分解的两个矩阵有负数，现实世界中不好解释，所以提出了NMF。
-为了符合TopN推荐，所以提出了WMF。推翻低秩假设，提出了LLORMA（局部低秩）。
-因为以上问题都未解决数据稀疏和冷启动问题，所以需要用上除了评分矩阵之外的数据来使推荐更加丰满，即加边信息。
-
-#### 3. FM模型
+#### 3. FM系列
 - [ ] 实现FM
 - [ ] 实现FFM
 - [ ] 实现DeepFM
+- [ ] 实现xDeepFM
 - [ ] 实现NFM
 - [ ] 实现AFM
-- [ ] 实现xDeepFM
-
 
 推荐系统中的矩阵分解技术 http://www.52nlp.cn/juzhenfenjiedatagrand
 树模型：GBDT，XGBoost，LightGBM，CatBoost，NGBoost

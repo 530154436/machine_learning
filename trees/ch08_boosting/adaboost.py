@@ -8,6 +8,7 @@ import numpy as np
     (基于单层决策树构建弱分类器)
     李航-统计学习方法2 156
     机器学习实战 p115
+    http://www.52caml.com/head_first_ml/ml-chapter6-boosting-family/
 '''
 
 def great_than(x:np.array, threshold:float):

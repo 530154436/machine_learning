@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.tree import DecisionTreeClassifier
 
-from common import sampling
+from tools import sampling
 
 '''
     周志华 8.3 Bagging与随机森林 p178

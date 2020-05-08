@@ -7,13 +7,13 @@ from matrix_factorization.funk_svd import FunkSVD, DataSet
 from matrix_factorization.bias_svd import BiasSVD
 from matrix_factorization.svdpp import SVDpp
 from matrix_factorization.nmf import NMF
-from common import metrics
-from common.encoder import MyLabelEncoder
+from tools import metrics
+from tools.encoder import MyLabelEncoder
 
 pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
 
-base = pathlib.Path(__file__).parent
+base = pathlib.Path(__file__).parent.parent
 
 uid_le, jid_le = MyLabelEncoder(ignore_unknown=True), MyLabelEncoder(ignore_unknown=True)
 
