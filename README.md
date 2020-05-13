@@ -27,7 +27,7 @@
 - [ ] 第21章 PageRank算法
 - [ ] 第22章 无监督学习方法总结
 
-#### 1. 树模型
+#### 1. 树模型(by Numpy)
 - [x] 实现决策树ID3、C4.5算法
 - [x] 实现Cart(回归树)
 - [x] 预/后剪枝算法
@@ -39,20 +39,39 @@
 - [x] 了解、尝试实现XGBoost
 - [ ] 整合XGBoost、LightGBM、CatBoost三个工具包
 
-#### 2. 矩阵分解(MF)
+#### 2. 矩阵分解(MF by Numpy)
 - [x] SVD (统计学习方法第15章 pureSVD)
 - [x] 实现Netflix Prize FunkSVD ( Latent Factor Model(LFM))
 - [x] BiasSVD (加入偏置项后的 Funk-SVD)
 - [x] 实现Koren's SVD++
 - [x] NMF(非负矩阵分解)
 
-#### 3. FM系列
-- [ ] 实现FM
-- [ ] 实现FFM
-- [ ] 实现DeepFM
-- [ ] 实现xDeepFM
-- [ ] 实现NFM
-- [ ] 实现AFM
+#### 3. FM-系列: 论文阅读与复现(TF)
+- [x] FM ：《Factorization Machines》、《Factorization Machines with libFM》
+- [ ] FFM ：《Field-aware Factorization Machines for CTR Prediction》
+- [ ] FNN：Factorisation Machine supported Neural Network)
+- [ ] DeepFM ：《DeepFM: A Factorization-Machine based Neural Network for CTR Prediction》
+- [ ] XDeepFM ：
+- [ ] NFM ：《Neural Factorization Machines for Sparse Predictive Analytics》
+- [ ] AFM ：《Attentional Factorization Machines: Learning the Weight of Feature Interactions via Attention Networks》
+
+#### 4. Embedding-系列: 论文阅读与复现(TF)
+- [ ]
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+
+
+- [ ] GBDT + LR ：《Practical Lessons from Predicting Clicks on Ads at Facebook》
+- [ ] Wide & Deep ：《Wide & Deep Learning for Recommender Systems》
+- [ ] DCN ：《Deep & Cross Network for Ad Click Predictions》
+- [ ] MLR ：《Learning Piece-wise Linear Models from Large Scale Data for Ad Click Prediction》
+- [ ] DIN ：《Deep Interest Network for Click-Through Rate Prediction》
+- [ ] DIEN ：《Deep Interest Evolution Network for Click-Through Rate Prediction》
+- [ ] BPR ：《BPR: Bayesian Personalized Ranking from Implicit Feedback》
+- [ ] Youtube ：《Deep Neural Networks for YouTube Recommendations》
 
 推荐系统中的矩阵分解技术 http://www.52nlp.cn/juzhenfenjiedatagrand
 树模型：GBDT，XGBoost，LightGBM，CatBoost，NGBoost

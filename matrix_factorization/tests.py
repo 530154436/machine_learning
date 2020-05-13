@@ -13,7 +13,7 @@ from tools.encoder import MyLabelEncoder
 pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
 
-base = pathlib.Path(__file__).parent.parent
+base = pathlib.Path(__file__).parent
 
 uid_le, jid_le = MyLabelEncoder(ignore_unknown=True), MyLabelEncoder(ignore_unknown=True)
 
