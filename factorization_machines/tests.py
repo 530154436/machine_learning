@@ -21,7 +21,7 @@ def main(model, x_tr, x_te, y_tr, y_te, epochs=100):
     test_x_y = tf.data.Dataset.from_tensor_slices((x_te, y_te)).shuffle(500).batch(20)
 
     # 训练
-    # train(train_x_y, model, epochs=epochs, input_dim=x_tr.shape[1])
+    train(train_x_y, model, epochs=epochs, input_dim=x_tr.shape[1])
     train_step_by_step(train_x_y, model, epochs=epochs)
 
     # 评估
