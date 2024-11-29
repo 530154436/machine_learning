@@ -87,17 +87,3 @@ Embedding：Word2vec，DeepWalk, Node2Vec，GCN
 >[2]https://github.com/WenDesi/lihang_book_algorithm
 
 >[3]https://github.com/fengdu78/lihang-code
-
-# 框架学习
-https://github.com/lyhue1991/eat_pytorch_in_20_days/tree/master
-
-# 代码框架
-https://github.com/ifwind/code_framework_pytorch
-https://ifwind.github.io/2021/10/16/Task4-基于深度学习的文本分类3-基于Bert的预训练和微调进行文本分类/#评估模型
-
-https://gitlab.qizhidao.com/wz_data_algo/algorithms/ai-recommendation/wzalgo_recommender_nlp/-/tree/release/src/framework?ref_type=heads
-
-https://github.com/lyhue1991/torchkeras/tree/master
-
-# 模型复现
-doing
