@@ -1,0 +1,8 @@
+# This file may be used to create an environment using:
+# $ conda create --name <env> --file <this file>
+# platform: osx-64
+@EXPLICIT
+https://repo.anaconda.com/pkgs/main/osx-64/pip-22.2.2-py37hecd8cb5_0.tar.bz2
+https://repo.anaconda.com/pkgs/main/osx-64/python-3.7.9-h26836e1_0.tar.bz2
+
+
