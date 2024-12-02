@@ -51,7 +51,14 @@ Embedding：Word2vec，DeepWalk, Node2Vec，GCN
 
 
 # 框架学习
-https://github.com/lyhue1991/eat_pytorch_in_20_days/tree/master
+
+PyTorch框架
+[PyTorch 实用教程（第二版）](https://tingsongyu.github.io/PyTorch-Tutorial-2nd/)<br>
+[PyTorch 实用教程（第二版）-GitHub](https://github.com/TingsongYu/PyTorch-Tutorial-2nd)<br>
+[深入浅出PyTorch](https://github.com/datawhalechina/thorough-pytorch)<br>
+[20天吃掉那只Pytorch](https://github.com/lyhue1991/eat_pytorch_in_20_days/tree/master)<br>
+[PyTorch 学习笔记](https://pytorch.zhangxiann.com/)<br>
+[深度学习框架PyTorch：入门与实践（第2版）](https://github.com/chenyuntc/pytorch-book/tree/master)
 
 
 # 代码框架
