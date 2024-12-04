@@ -1,3 +1,11 @@
+<nav>
+<a href="#一pytorch-初认识">一、PyTorch 初认识</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#11-pytorch历史">1.1 PyTorch历史</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#12-pytorch发展趋势">1.2 PyTorch发展趋势</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#13-环境配置">1.3 环境配置</a><br/>
+<a href="#参考引用">参考引用</a><br/>
+</nav>
+
 
 
 ### 一、PyTorch 初认识
@@ -13,19 +21,15 @@ PyTorch 的关键发展历程包括：
 + 2018 年 11 月，发布 1.0 稳定版，成为 GitHub 上增长第二快的开源项目。
 + ...
 
-最新版本于 2024 年 10 月发布PyTorch 2.5.1。[PyTorch-releases](https://github.com/pytorch/pytorch/releases)
+截止到 2024 年 10 月，FAIR发布了PyTorch 2.5.1。[PyTorch-releases](https://github.com/pytorch/pytorch/releases)
 
 
 #### 1.2 PyTorch发展趋势
 
-PyTorch近年来发展迅猛，已成为深度学习框架中的佼佼者，尤其在学术界大放异彩。绝大多数顶会论文都选择PyTorch实现，其在学术界的使用比例逐年上升，并在2018-2019年间实现了对TensorFlow的超越。 
-目前，PyTorch的学术占有率甚至达到了TensorFlow的两倍以上，稳坐学术界“带头大哥”的位置。<br>
-
-此外，PyTorch在工业界的表现也逐步赶超。
-早期工业部署方面，PyTorch稍逊于TensorFlow，但随着libtorch、TorchServe等工具的推出，以及适配性良好的部署框架（如TensorRT、OpenVINO、ONNX等）的支持，PyTorch在部署效率和灵活性上得到了显著提升。<br>
-
-PyTorch的优势在于快速实现从研究原型到生产部署的转化。
-无论是学术研究者追求最新模型，还是工业开发者需要应用新技术，PyTorch都成为了首选框架。<br>
+通过学术界论文的趋势可以看出，PyTorch是未来的大势所趋。
+虽然在早期工业部署方面不如TensorFlow，但如今PyTorch推出了libtorch、TorchServe等工具，以及如TensorRT、OpenVINO、ONNX等兼容性良好的部署框架，这些都显著提升了PyTorch的部署能力。
+PyTorch如今已经在学术界占据主导地位，新模型基本都是用PyTorch实现，工业界开发者为应用最新的算法和模型，也只能纷纷转向PyTorch。
+选择PyTorch进行深度学习、机器学习开发，不仅加速模型开发，还充分体现了PyTorch的主旨：`An open source machine learning framework that accelerates the path from research prototyping to production deployment`.<br>
 
 <img src="images/PyTorch发展趋势.png" width="50%" height="30%" alt=""><br>
 
@@ -61,12 +65,23 @@ Codename:       jammy
 ```
 
 + Miniconda创建虚拟环境
-```shell
+```
 conda create -n deeplearning python==3.10.12
 conda activate deeplearning
-python -m pip install --no-cache  -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple --trusted-host mirrors.tuna.tsinghua.edu.cn
+cd $HOME/machine_learning
+python -m pip install -r requirements.txt -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
+
+(deeplearning) root@recllm:/data# python
+>>> import torch
+[HAMI-core Msg(46408:140098104814464:libvgpu.c:836)]: Initializing.....
+>>> torch.__version__
+'2.4.0+cu121'
+
+# jupyter 地址
+nohup jupyter notebook --allow-root --no-browser --port 8088 &
 ```
 
+### 参考引用
 
 [1] [《PyTorch实用教程》（第二版）](https://github.com/TingsongYu/PyTorch-Tutorial-2nd/releases/tag/v1.0.0)<br>
 [2] [PyTorch 2.4.0](https://pytorch.org/get-started/previous-versions/#v240)<br>
