@@ -318,14 +318,13 @@ y = a * b
 
 假设要计算 $y$ 对 $w$ 的导数，在计算图中如何操作呢？<br>
 
-<img src="images/计算图求导.png" width="50%" height="30%" alt=""><br>
+<img src="images/计算图求导.png" width="60%" height="40%" alt=""><br>
 
-首先，观察 $w$ 和 $y$ 之间的关系：$w$ 会通过两条路径传递到 $y$。一种是通过左边的路径（与 $a$ 相连），另一种是通过右边的路径（与 $b$ 相连）。<br>
+首先，观察 $w$ 和 $y$ 之间的关系：$w$ 会通过两条路径传递到 $y$ 。一种是通过左边的路径（与 $a$ 相连），另一种是通过右边的路径（与 $b$ 相连）。<br>
 
 因此，$y$ 对 $w$ 的偏导数可以通过链式法则表示为：
-$$
-\frac{\partial y}{\partial w} = \frac{\partial y}{\partial a} \cdot \frac{\partial a}{\partial w} + \frac{\partial y}{\partial b} \cdot \frac{\partial b}{\partial w}
-$$
+
+$$\frac{\partial y}{\partial w} = \frac{\partial y}{\partial a} \cdot \frac{\partial a}{\partial w} + \frac{\partial y}{\partial b} \cdot \frac{\partial b}{\partial w}$$
 
 通过计算图的逐步求导，可以得到最终的结果。
 
