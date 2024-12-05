@@ -121,7 +121,7 @@ x1, x2
 #### 1.2.3 操作张量
 PyTorch中的 Tensor 支持超过一百种操作，包括转置、索引、切片、数学运算、线性代数、随机数等等，具体使用方法可参考[官方文档](https://pytorch.org/docs/stable/tensors.html)。
 
-##### a.算术操作
+##### a. 算术操作
 ```
 x = torch.ones(2, 3) 
 y = torch.eye(2, 3)
@@ -146,7 +146,7 @@ x, y, s1, s2, s3, y
  tensor([[2., 1., 1.],
          [1., 2., 1.]]))
 ```
-##### b.索引
+##### b. 索引
 索引出来的结果与原数据`共享内存`，也即修改一个，另一个会跟着修改。
 ```
 x = torch.ones(2, 3, device='cuda') 
@@ -159,7 +159,7 @@ x, y, x[0, :]
  tensor([2., 2., 2.], device='cuda:0'),
  tensor([2., 2., 2.], device='cuda:0'))
 ```
-##### c.切片（index_select）
+##### c. 切片（index_select）
 沿着指定维度对输入进行切片，取index中指定的相应项(index 为一个 LongTensor)，然后返回到一个新的张量， 返回的张量与原始张量 Tensor 有相同的维度(在指定轴上)。<br>
 注意： `返回的张量不与原始张量共享内存空间`。<br>
 ```
@@ -182,7 +182,7 @@ x, indices, y
  tensor([[ 0.1912,  0.1199, -0.0856, -1.8215],
          [-1.2408, -1.6029,  0.8402,  0.3389]]))
 ```
-##### d.维度变换
+##### d. 维度变换
 张量的维度变换常见的方法有torch.view()和torch.reshape()
 1. `view()`<br>
 注意view()**返回的新Tensor与源Tensor虽然可能有不同的size**，但`共享data`。<br>
@@ -231,7 +231,7 @@ x1, y3
 ```
 
 
-##### e.gather
+##### e. gather
 `torch.gather(input, dim, index, out=None)`<br>
 官方定义：沿给定轴dim，将输入索引张量index指定位置的值进行聚合。<br>
 通俗理解：给定轴dim，在input中，根据index指定的下标，选择元素重组成一个新的tensor，最后输出的out与index的size是一样的。<br>
@@ -264,7 +264,7 @@ tensor([[0.9000],
         [0.7000]])
 ```
 
-##### f.广播机制
+##### f. 广播机制
 当我们对两个形状不同的Tensor按元素运算时，可能会触发`广播(broadcasting)机制`。 <br>
 先适当复制元素使这两个Tensor形状相同后再按元素运算。
 ```
@@ -283,7 +283,7 @@ x, y, x+y
          [4, 5]]))
 ```
 
-##### g.Tensor和NumPy相互转换
+##### g. Tensor和NumPy相互转换
 `numpy()`和`from_numpy()`
 + 这两个函数所产生的的Tensor和NumPy中的数组共享相同的内存(所以他们之间的转换很快)，改变其中一个时另一个也会改变!
 
@@ -320,7 +320,7 @@ print(x, y)
 ```
 
 #### 1.2.4 自动求导
-##### a.计算图概念
+##### a. 计算图概念
 计算图是一种描述运算的“语言”，由节点（Node）和边（Edge）组成：
 - **节点**表示数据，如标量、向量、矩阵、张量等；
 - **边**表示运算，如加法、减法、乘法、除法、卷积、ReLU 等。
@@ -376,7 +376,7 @@ $$\frac{\partial y}{\partial w} = \frac{\partial y}{\partial a} \cdot \frac{\par
 
 总结来说，静态图和动态图各有优劣，动态图提供了更大的灵活性和易用性，而静态图则在计算效率上有一定优势，适合于大规模部署和优化。
 
-##### b.Autograd
+##### b. Autograd
 torch.Tensor 是这个包的核心类。如果设置它的属性 `.requires_grad` 为 True，那么它将会追踪对于该张量的所有操作。
 当完成计算后可以通过调用 `.backward()`，来自动计算所有的梯度。这个张量的所有梯度将会自动累加到`.grad`属性。<br>
 
