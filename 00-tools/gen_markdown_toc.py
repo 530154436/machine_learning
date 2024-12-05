@@ -58,4 +58,5 @@ def traverse_directory(directory_path):
 
 
 if __name__ == "__main__":
-    process_markdown_file("../torch_learning/ch01_PyTorch简介与环境配置.md")
+    # process_markdown_file("../torch_learning/ch01_PyTorch简介与环境配置.md")
+    process_markdown_file("../torch_learning/ch02_PyTorch核心模块.md")
