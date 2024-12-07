@@ -62,12 +62,13 @@ PyTorch框架
 
 
 # 代码框架
-https://github.com/ifwind/code_framework_pytorch
+[torchkeras](https://github.com/lyhue1991/torchkeras/tree/master)<br>
+[torchkeras-3.7.2(这个版本比较简洁)](https://pypi.org/project/torchkeras/3.7.2/#files)<br>
+[torch4keras](https://github.com/Tongjilibo/torch4keras)<br>
+[pytorch-template](https://github.com/songquanpeng/pytorch-template)<br>
+[code_framework_pytorch](https://github.com/ifwind/code_framework_pytorch)<br>
 https://ifwind.github.io/2021/10/16/Task4-基于深度学习的文本分类3-基于Bert的预训练和微调进行文本分类/#评估模型
-
 https://gitlab.qizhidao.com/wz_data_algo/algorithms/ai-recommendation/wzalgo_recommender_nlp/-/tree/release/src/framework?ref_type=heads
-
-https://github.com/lyhue1991/torchkeras/tree/master
 
 
 ### 引用
