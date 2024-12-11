@@ -457,11 +457,10 @@ print(x.grad)                               # tensor([2.7183])
 ### 参考引用
 
 [1] [《PyTorch实用教程》（第二版）](https://github.com/TingsongYu/PyTorch-Tutorial-2nd/releases/tag/v1.0.0)<br>
-[2] [深入浅出PyTorch](https://github.com/datawhalechina/thorough-pytorch)<br>
+[2] [《深入浅出PyTorch》](https://github.com/datawhalechina/thorough-pytorch)<br>
 [3] [PyTorch中文文档](https://www.bookstack.cn/read/PyTorch-cn/README.md)<br>
 [4] [一览 Pytorch框架](https://zhuanlan.zhihu.com/p/334788042)<br>
 [5] [PyTorch的核心模块介绍](https://blog.csdn.net/weixin_38566632/article/details/135442466)<br>
 [6] [PyTorch 2.4.0 版本发布](https://pytorch.org/get-started/previous-versions/#v240)<br>
 [7] [20天吃掉那只Pytorch](https://github.com/lyhue1991/eat_pytorch_in_20_days/tree/master)<br>
 [8] [PyTorch 源码解读之 torch.autograd：梯度计算详解](https://zhuanlan.zhihu.com/p/321449610)<br>
-
