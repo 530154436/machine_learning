@@ -12,6 +12,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#e-gather">(5) gather</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#f-广播机制">(6) 广播机制</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#g-tensor和numpy相互转换">(7) Tensor和NumPy相互转换</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#8-降维">(8) 降维</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#124-自动求导">1.2.4 自动求导</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a-计算图概念">(1) 计算图概念</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#b-autograd">(2) Autograd</a><br/>
@@ -317,6 +318,49 @@ x += 1
 
 print(x, y)
 [2. 2. 2.] tensor([1., 1., 1.], dtype=torch.float64)
+```
+
+##### (8) 降维
+在 PyTorch 中，对张量进行聚合操作时（例如求和或求均值），默认情况下，会调用相关函数沿指定的轴进行聚合，并降低张量的维度。例如：<br>
+指定 axis=0：沿轴 0 汇总所有行的元素降维（轴0），因此，输入轴0的维数在输出形状中消失。<br>
+指定 axis=1：沿轴 1 汇总所有列的元素降维（轴1），因此，输入轴1的维数在输出形状中消失。<br>
+全矩阵求和：同时对行和列进行求和，相当于对矩阵的所有元素求和，最终得到一个标量。
+```
+A = torch.arange(6, dtype=torch.float32).view(3, 2)
+print(A)
+print(A.shape, A.sum(), A.sum(axis=[0, 1]))
+
+A_sum_axis0 = A.sum(axis=0)
+print(A_sum_axis0.shape, A_sum_axis0)
+
+A_sum_axis1 = A.sum(axis=1)
+print(A_sum_axis1.shape, A_sum_axis1)
+
+tensor([[0., 1.],
+        [2., 3.],
+        [4., 5.]])
+torch.Size([3, 2]) tensor(15.) tensor(15.)
+torch.Size([2]) tensor([6., 9.])
+torch.Size([3]) tensor([1., 5., 9.])
+```
+如果希望保持轴数不变，可以使用 `keepdim=True` 参数。这样就可以保持张量的维度一致，方便后续操作，特别是在进行广播（broadcasting）或者在特定形状的计算中非常有用。
+```
+A = torch.arange(6, dtype=torch.float32).view(2, 3)
+B = torch.arange(6, dtype=torch.float32).view(2, 3)
+
+A_sum_axis0 = A.sum(axis=0)
+print(A)
+print(A_sum_axis0)
+print(B)
+print(A_sum_axis0 + B)
+
+tensor([[0., 1., 2.],
+        [3., 4., 5.]])
+tensor([3., 5., 7.])
+tensor([[0., 1., 2.],
+        [3., 4., 5.]])
+tensor([[ 3.,  6.,  9.],
+        [ 6.,  9., 12.]])
 ```
 
 #### 1.2.4 自动微分
