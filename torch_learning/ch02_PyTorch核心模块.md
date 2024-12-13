@@ -458,7 +458,7 @@ ret.backward()                              # 反传梯度
 print(x.grad)                               # tensor([2.7183])
 ```
 
-### 参考引用
+## 参考引用
 
 [1] [《PyTorch实用教程》（第二版）](https://github.com/TingsongYu/PyTorch-Tutorial-2nd/releases/tag/v1.0.0)<br>
 [2] [《深入浅出PyTorch》](https://github.com/datawhalechina/thorough-pytorch)<br>
