@@ -5,18 +5,19 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#121-基本概念">1.2.1 基本概念</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#122-创建张量">1.2.2 创建张量</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#123-操作张量">1.2.3 操作张量</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a-算术操作">(1) 算术操作</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#b-索引">(2) 索引</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#c-切片index_select">(3) 切片（index_select）</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#d-维度变换">(4) 维度变换</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#e-gather">(5) gather</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#f-广播机制">(6) 广播机制</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#g-tensor和numpy相互转换">(7) Tensor和NumPy相互转换</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#1-算术操作">(1) 算术操作</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#2-索引">(2) 索引</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#3-切片index_select">(3) 切片（index_select）</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4-维度变换">(4) 维度变换</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#5-gather">(5) gather</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#6-广播机制">(6) 广播机制</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#7-tensor和numpy相互转换">(7) Tensor和NumPy相互转换</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#8-降维">(8) 降维</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#124-自动求导">1.2.4 自动求导</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a-计算图概念">(1) 计算图概念</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#b-autograd">(2) Autograd</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="#参考引用">参考引用</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#9-点积矩阵-向量积矩阵-矩阵乘法">(9) 点积、矩阵-向量积、矩阵-矩阵乘法</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#124-自动微分">1.2.4 自动微分</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#1-计算图概念">(1) 计算图概念</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#2-autograd">(2) Autograd</a><br/>
+<a href="#参考引用">参考引用</a><br/>
 </nav>
 
 
@@ -361,6 +362,89 @@ tensor([[0., 1., 2.],
         [3., 4., 5.]])
 tensor([[ 3.,  6.,  9.],
         [ 6.,  9., 12.]])
+```
+
+##### (9) 点积、矩阵-向量积、矩阵-矩阵乘法
+**点积**（dot product）<br>
+给定两个向量 $\mathbf{x},\mathbf{y}\in\mathbb{R}^d$ ， 
+它们的*点积*是 $\mathbf{x}^\top\mathbf{y}$ = $\sum_{i=1}^{d} x_i y_i$ 。
+即两个向量相同位置的按元素乘积的和。
+```
+x = torch.arange(4, dtype=torch.float32)
+y = torch.ones(4, dtype = torch.float32)
+_dot = torch.sum(x * y)
+x, y, torch.dot(x, y), _dot
+
+tensor([0., 1., 2., 3.]), tensor([1., 1., 1., 1.]), tensor(6.), tensor(6.)
+```
+**矩阵-向量积**（matrix-vector product）<br>
+给定矩阵 $\mathbf{A} \in \mathbb{R}^{m \times n}$ 和向量 $\mathbf{x} \in \mathbb{R}^n$ 。<br>
+矩阵 $\mathbf{A}$ 用它的行向量表示：
+
+$$\mathbf{A}=
+\begin{bmatrix}
+\mathbf{a}^\top_{1} \\
+\mathbf{a}^\top_{2} \\
+\vdots \\
+\mathbf{a}^\top_m \\
+\end{bmatrix},$$
+
+其中每个 $\mathbf{a}^\top_{i} \in \mathbb{R}^n$ 都是行向量，表示矩阵的第 $i$ 行。
+矩阵向量积 $\mathbf{A}\mathbf{x}$ 是一个长度为 $m$ 的列向量，其第 $i$ 个元素是点积 $\mathbf{a}^\top_i \mathbf{x}$ ：
+
+$$
+\mathbf{A}\mathbf{x}
+= \begin{bmatrix}
+\mathbf{a}^\top_{1} \\
+\mathbf{a}^\top_{2} \\
+\vdots \\
+\mathbf{a}^\top_m \\
+\end{bmatrix}\mathbf{x}
+= \begin{bmatrix}
+ \mathbf{a}^\top_{1} \mathbf{x}  \\
+ \mathbf{a}^\top_{2} \mathbf{x} \\
+\vdots\\
+ \mathbf{a}^\top_{m} \mathbf{x}\\
+\end{bmatrix}.
+$$
+```
+A = torch.arange(8, dtype=torch.float32).view(2, 4)
+x = torch.arange(4, dtype=torch.float32)
+print(A)
+print(x)
+A.shape, x.shape, torch.mv(A, x)
+
+tensor([[0., 1., 2., 3.],
+        [4., 5., 6., 7.]])
+tensor([0., 1., 2., 3.])
+(torch.Size([2, 4]), torch.Size([4]), tensor([14., 38.]))
+```
+**矩阵‐矩阵乘法**（matrix‐matrix multiplication）
+矩阵 $\mathbf{C}$ 每个元素 $c_{ij}$ 计算为点积 $\mathbf{a}^\top_i \mathbf{b}_j$ :
+
+$$\mathbf{C} = \mathbf{AB} = \begin{bmatrix}
+\mathbf{a}^\top_{1} \\
+\mathbf{a}^\top_{2} \\
+\vdots \\
+\mathbf{a}^\top_n \\
+\end{bmatrix}
+\begin{bmatrix}
+ \mathbf{b}_{1} & \mathbf{b}_{2} & \cdots & \mathbf{b}_{m} \\
+\end{bmatrix}
+= \begin{bmatrix}
+\mathbf{a}^\top_{1} \mathbf{b}_1 & \mathbf{a}^\top_{1}\mathbf{b}_2& \cdots & \mathbf{a}^\top_{1} \mathbf{b}_m \\
+ \mathbf{a}^\top_{2}\mathbf{b}_1 & \mathbf{a}^\top_{2} \mathbf{b}_2 & \cdots & \mathbf{a}^\top_{2} \mathbf{b}_m \\
+ \vdots & \vdots & \ddots &\vdots\\
+\mathbf{a}^\top_{n} \mathbf{b}_1 & \mathbf{a}^\top_{n}\mathbf{b}_2& \cdots& \mathbf{a}^\top_{n} \mathbf{b}_m
+\end{bmatrix}.
+$$
+```
+A = torch.arange(8, dtype=torch.float32).view(2, 4)
+B = torch.arange(12, dtype=torch.float32).view(4, 3)
+C = torch.mm(A, B)
+A.shape, B.shape, C.shape
+
+(torch.Size([2, 4]), torch.Size([4, 3]), torch.Size([2, 3]))
 ```
 
 #### 1.2.4 自动微分
