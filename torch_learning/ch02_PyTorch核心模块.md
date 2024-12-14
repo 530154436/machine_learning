@@ -434,7 +434,10 @@ $$
 \begin{bmatrix}
  \mathbf{b}_{1} & \mathbf{b}_{2} & \cdots & \mathbf{b}_{m} \\
 \end{bmatrix}
-= \begin{bmatrix}
+$$
+
+$$
+\begin{bmatrix}
  \mathbf{a}^\top_{1} \mathbf{b}_1 & \mathbf{a}^\top_{1} \mathbf{b}_2 & \cdots & \mathbf{a}^\top_{1} \mathbf{b}_m \\
  \mathbf{a}^\top_{2} \mathbf{b}_1 & \mathbf{a}^\top_{2} \mathbf{b}_2 & \cdots & \mathbf{a}^\top_{2} \mathbf{b}_m \\
  \vdots & \vdots & \ddots & \vdots \\
