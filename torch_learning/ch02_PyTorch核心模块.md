@@ -437,8 +437,7 @@ $$\mathbf{C} = \mathbf{AB} = \begin{bmatrix}
  \mathbf{a}^\top_{2}\mathbf{b}_1 & \mathbf{a}^\top_{2} \mathbf{b}_2 & \cdots & \mathbf{a}^\top_{2} \mathbf{b}_m \\
  \vdots & \vdots & \ddots &\vdots\\
 \mathbf{a}^\top_{n} \mathbf{b}_1 & \mathbf{a}^\top_{n}\mathbf{b}_2& \cdots& \mathbf{a}^\top_{n} \mathbf{b}_m
-\end{bmatrix}.
-$$
+\end{bmatrix}. $$
 ```
 A = torch.arange(8, dtype=torch.float32).view(2, 4)
 B = torch.arange(12, dtype=torch.float32).view(4, 3)
