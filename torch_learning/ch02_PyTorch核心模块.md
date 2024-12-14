@@ -433,12 +433,7 @@ $$
 \begin{bmatrix}
  \mathbf{b}_1 & \mathbf{b}_2 & \cdots & \mathbf{b}_m \\
 \end{bmatrix}
-= \begin{bmatrix}
-\mathbf{a}^\top_{1} \mathbf{b}_1 & \mathbf{a}^\top_{1} \mathbf{b}_2 & \cdots & \mathbf{a}^\top_{1} \mathbf{b}_m \\
- \mathbf{a}^\top_{2}\mathbf{b}_1 & \mathbf{a}^\top_{2} \mathbf{b}_2 & \cdots & \mathbf{a}^\top_{2} \mathbf{b}_m \\
- \vdots & \vdots & \ddots &\vdots\\
-\mathbf{a}^\top_{n} \mathbf{b}_1 & \mathbf{a}^\top_{n}\mathbf{b}_2& \cdots& \mathbf{a}^\top_{n} \mathbf{b}_m
-\end{bmatrix}.
+
 $$
 ```
 A = torch.arange(8, dtype=torch.float32).view(2, 4)
