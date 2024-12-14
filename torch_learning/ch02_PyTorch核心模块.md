@@ -378,7 +378,7 @@ x, y, torch.dot(x, y), _dot
 tensor([0., 1., 2., 3.]), tensor([1., 1., 1., 1.]), tensor(6.), tensor(6.)
 ```
 **矩阵-向量积**（matrix-vector product）<br>
-给定矩阵 $\mathbf{A} \in \mathbb{R}^{m \times n}$ 和向量 $\mathbf{x} \in \mathbb{R}^n$ 。<br>
+给定矩阵 $\mathbf{A} \in \mathbb{R}^{m \times n}$ 和向量 $\mathbf{x} \in \mathbb{R}^n$ ，
 矩阵 $\mathbf{A}$ 用它的行向量表示：
 
 $$\mathbf{A}=
@@ -424,7 +424,8 @@ tensor([0., 1., 2., 3.])
 假设有两个矩阵 $\mathbf{A} \in \mathbb{R}^{n \times k}$ 和 $\mathbf{B} \in \mathbb{R}^{k \times m}$， $\mathbf{A}$ 用行向量表， $\mathbf{B}$ 用列向量表示，
 则矩阵积 $\mathbf{C} = \mathbf{A}\mathbf{B}$ 的每个元素 $c_{ij}$ 可以计算为点积 $\mathbf{a}^\top_i \mathbf{b}_j$:
 
-$$\mathbf{C} = \mathbf{AB} = \begin{bmatrix}
+$$
+\mathbf{C} = \mathbf{AB} = \begin{bmatrix}
 \mathbf{a}^\top_{1} \\
 \mathbf{a}^\top_{2} \\
 \vdots \\
@@ -440,6 +441,7 @@ $$\mathbf{C} = \mathbf{AB} = \begin{bmatrix}
 \mathbf{a}^\top_{n} \mathbf{b}_1 & \mathbf{a}^\top_{n}\mathbf{b}_2& \cdots& \mathbf{a}^\top_{n} \mathbf{b}_m
 \end{bmatrix}.
 $$
+
 ```
 A = torch.arange(8, dtype=torch.float32).view(2, 4)
 B = torch.arange(12, dtype=torch.float32).view(4, 3)
