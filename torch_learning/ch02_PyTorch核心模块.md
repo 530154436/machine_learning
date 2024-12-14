@@ -14,6 +14,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#7-tensor和numpy相互转换">(7) Tensor和NumPy相互转换</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#8-降维">(8) 降维</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#9-点积矩阵-向量积矩阵-矩阵乘法">(9) 点积、矩阵-向量积、矩阵-矩阵乘法</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#10-范数">(10) 范数</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#124-自动微分">1.2.4 自动微分</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#1-计算图概念">(1) 计算图概念</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#2-autograd">(2) Autograd</a><br/>
@@ -447,6 +448,34 @@ C = torch.mm(A, B)
 A.shape, B.shape, C.shape
 
 (torch.Size([2, 4]), torch.Size([4, 3]), torch.Size([2, 3]))
+```
+
+##### (10) 范数
+向量的**范数**（norm）将向量映射到标量，表示一个向量有多大。假设 $n$ 维向量 $\mathbf{x}$ 中的元素是 $x_1,\ldots,x_n$ ，那么：<br>
+
+**$L_1$ 范数**：$\|\mathbf{x}\|_1 = \sum_{i=1}^n \left|x_i \right|$ ，表示向量元素的绝对值之和。<br>
+**$L_2$ 范数**：$\|\mathbf{x}\|_2 = \sqrt{\sum_{i=1}^n x_i^2}$ ，表示向量元素平方和的平方根。<br>
+**$L_p$ 范数**：$\|\mathbf{x}\|_p = \left(\sum_{i=1}^n \left|x_i \right|^p \right)^{1/p}$ <br>
+
+类似于向量的$L_2$范数，**矩阵** $\mathbf{X} \in \mathbb{R}^{m \times n}$ 的**Frobenius范数**（Frobenius norm）：<br>
+
+$\|\mathbf{X}\|_F = \sqrt{\sum_{i=1}^m \sum_{j=1}^n x_{ij}^2}.$ ，表示矩阵元素平方和的平方根。
+
+```
+x = torch.tensor([3.0, -4.0])
+l1_1 = torch.abs(x).sum()
+l1_2 = torch.norm(x, p=1)
+l2_1 = torch.norm(x)
+l2_2 = torch.norm(x, p=2)
+
+X = torch.ones(3, 4)
+f_1 = torch.norm(X)
+f_2 = torch.norm(X, p='fro')
+print(l1_1, l1_2, l2_1, l2_2)
+print(f_1, f_2)
+
+tensor(7.) tensor(7.) tensor(5.) tensor(5.)
+tensor(3.4641) tensor(3.4641)
 ```
 
 #### 1.2.4 自动微分
