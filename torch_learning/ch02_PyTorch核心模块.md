@@ -425,7 +425,9 @@ tensor([0., 1., 2., 3.])
 则矩阵积 $\mathbf{C} = \mathbf{A}\mathbf{B}$ 的每个元素 $c_{ij}$ 可以计算为点积 $\mathbf{a}^\top_i \mathbf{b}_j$:
 
 $$
-\mathbf{C} = \mathbf{AB} = \begin{bmatrix}
+\mathbf{C} 
+= \mathbf{AB} 
+= \begin{bmatrix}
 \mathbf{a}^\top_{1} \\
 \mathbf{a}^\top_{2} \\
 \vdots \\
@@ -435,7 +437,6 @@ $$
  \mathbf{b}_{1} & \mathbf{b}_{2} & \cdots & \mathbf{b}_{m} \\
 \end{bmatrix}
 $$
-
 ```
 A = torch.arange(8, dtype=torch.float32).view(2, 4)
 B = torch.arange(12, dtype=torch.float32).view(4, 3)
