@@ -420,18 +420,27 @@ tensor([0., 1., 2., 3.])
 (torch.Size([2, 4]), torch.Size([4]), tensor([14., 38.]))
 ```
 **矩阵‐矩阵乘法**（matrix‐matrix multiplication）<br>
+
 假设有两个矩阵 $\mathbf{A} \in \mathbb{R}^{n \times k}$ 和 $\mathbf{B} \in \mathbb{R}^{k \times m}$， $\mathbf{A}$ 用行向量表， $\mathbf{B}$ 用列向量表示，
 则矩阵积 $\mathbf{C} = \mathbf{A}\mathbf{B}$ 的每个元素 $c_{ij}$ 可以计算为点积 $\mathbf{a}^\top_i \mathbf{b}_j$:
 
-$ \mathbf{C} = \mathbf{AB} = \begin{bmatrix}
+$$
+\begin{split}\mathbf{C} = \mathbf{AB} = \begin{bmatrix}
 \mathbf{a}^\top_{1} \\
 \mathbf{a}^\top_{2} \\
 \vdots \\
 \mathbf{a}^\top_n \\
 \end{bmatrix}
 \begin{bmatrix}
- \mathbf{b}_1 & \mathbf{b}_2 & \cdots & \mathbf{b}_m \\
-\end{bmatrix} $
+ \mathbf{b}_{1} & \mathbf{b}_{2} & \cdots & \mathbf{b}_{m} \\
+\end{bmatrix}
+= \begin{bmatrix}
+\mathbf{a}^\top_{1} \mathbf{b}_1 & \mathbf{a}^\top_{1}\mathbf{b}_2& \cdots & \mathbf{a}^\top_{1} \mathbf{b}_m \\
+ \mathbf{a}^\top_{2}\mathbf{b}_1 & \mathbf{a}^\top_{2} \mathbf{b}_2 & \cdots & \mathbf{a}^\top_{2} \mathbf{b}_m \\
+ \vdots & \vdots & \ddots &\vdots\\
+\mathbf{a}^\top_{n} \mathbf{b}_1 & \mathbf{a}^\top_{n}\mathbf{b}_2& \cdots& \mathbf{a}^\top_{n} \mathbf{b}_m
+\end{bmatrix}.\end{split}
+$$
 ```
 A = torch.arange(8, dtype=torch.float32).view(2, 4)
 B = torch.arange(12, dtype=torch.float32).view(4, 3)
