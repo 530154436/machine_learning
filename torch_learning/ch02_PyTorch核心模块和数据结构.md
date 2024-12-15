@@ -1,23 +1,20 @@
 <nav>
 <a href="#一pytorch-核心模块">一、PyTorch 核心模块</a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#11-模块结构">1.1 模块结构</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="#12-核心数据结构-tensor">1.2 核心数据结构 Tensor</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#121-基本概念">1.2.1 基本概念</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#122-创建张量">1.2.2 创建张量</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#123-操作张量">1.2.3 操作张量</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#1-算术操作">(1) 算术操作</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#2-索引">(2) 索引</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#3-切片index_select">(3) 切片（index_select）</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4-维度变换">(4) 维度变换</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#5-gather">(5) gather</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#6-广播机制">(6) 广播机制</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#7-tensor和numpy相互转换">(7) Tensor和NumPy相互转换</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#8-降维">(8) 降维</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#9-点积矩阵-向量积矩阵-矩阵乘法">(9) 点积、矩阵-向量积、矩阵-矩阵乘法</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#10-范数">(10) 范数</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#124-自动微分">1.2.4 自动微分</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#1-计算图概念">(1) 计算图概念</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#2-autograd">(2) Autograd</a><br/>
+<a href="#二核心数据结构-tensor">二、核心数据结构 Tensor</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#21-基本概念">2.1 基本概念</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#22-创建张量">2.2 创建张量</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#23-操作张量">2.3 操作张量</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#1-算术操作">(1) 算术操作</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#2-索引">(2) 索引</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#3-切片index_select">(3) 切片（index_select）</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4-维度变换">(4) 维度变换</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#5-gather">(5) gather</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#6-广播机制">(6) 广播机制</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#7-tensor和numpy相互转换">(7) Tensor和NumPy相互转换</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#8-降维">(8) 降维</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#9-点积矩阵-向量积矩阵-矩阵乘法">(9) 点积、矩阵-向量积、矩阵-矩阵乘法</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#10-范数">(10) 范数</a><br/>
 <a href="#参考引用">参考引用</a><br/>
 </nav>
 
@@ -44,9 +41,9 @@
 | `torch.onnx`              | 定义了 Pytorch 导出和加载 ONNX格式的深度学习模型描述文件，便于跨框架使用模型。           |
 | `torch.multiprocessing`   | 多进程 API，可以启动不同的进程，每个进程运行不同的深度学习模型，并且能够在进程间共享张量。          |
 
-### 1.2 核心数据结构 Tensor
 
-#### 1.2.1 基本概念
+## 二、核心数据结构 Tensor
+### 2.1 基本概念
 张量（Tensor）是一个多维数组，它是标量、向量和矩阵的拓展。标量是零维张量，向量是一维张量，矩阵是二维张量，如一个RGB图像的数组就是一个三维张量（高、宽、颜色通道）。<br>
 
 在 PyTorch 中，有两个张量的相关概念容易混淆，分别是 `torch.Tensor` 和 `torch.tensor`：
@@ -66,7 +63,7 @@
 - `is_leaf`: 标记张量是否为计算图的叶子节点。
 - `requires_grad`: 标记该张量是否需要计算梯度。
 
-#### 1.2.2 创建张量
+### 2.2 创建张量
 + 直接创建
 ```
 # 创建一个2x3的未初始化的Tensor
@@ -121,10 +118,10 @@ x1, x2
          [ 1.1600, -0.2267,  0.4583]], device='cuda:0'))
 ```
 
-#### 1.2.3 操作张量
+### 2.3 操作张量
 PyTorch中的 Tensor 支持超过一百种操作，包括转置、索引、切片、数学运算、线性代数、随机数等等，具体使用方法可参考[官方文档](https://pytorch.org/docs/stable/tensors.html)。
 
-##### (1) 算术操作
+#### (1) 算术操作
 ```
 x = torch.ones(2, 3) 
 y = torch.eye(2, 3)
@@ -149,7 +146,7 @@ x, y, s1, s2, s3, y
  tensor([[2., 1., 1.],
          [1., 2., 1.]]))
 ```
-##### (2) 索引
+#### (2) 索引
 索引出来的结果与原数据`共享内存`，也即修改一个，另一个会跟着修改。
 ```
 x = torch.ones(2, 3, device='cuda') 
@@ -162,7 +159,7 @@ x, y, x[0, :]
  tensor([2., 2., 2.], device='cuda:0'),
  tensor([2., 2., 2.], device='cuda:0'))
 ```
-##### (3) 切片（index_select）
+#### (3) 切片（index_select）
 沿着指定维度对输入进行切片，取index中指定的相应项(index 为一个 LongTensor)，然后返回到一个新的张量， 返回的张量与原始张量 Tensor 有相同的维度(在指定轴上)。<br>
 注意： `返回的张量不与原始张量共享内存空间`。<br>
 ```
@@ -185,7 +182,7 @@ x, indices, y
  tensor([[ 0.1912,  0.1199, -0.0856, -1.8215],
          [-1.2408, -1.6029,  0.8402,  0.3389]]))
 ```
-##### (4) 维度变换
+#### (4) 维度变换
 张量的维度变换常见的方法有torch.view()和torch.reshape()
 1. `view()`<br>
 注意view()**返回的新Tensor与源Tensor虽然可能有不同的size**，但`共享data`。<br>
@@ -234,7 +231,7 @@ x1, y3
 ```
 
 
-##### (5) gather
+#### (5) gather
 `torch.gather(input, dim, index, out=None)`<br>
 官方定义：沿给定轴dim，将输入索引张量index指定位置的值进行聚合。<br>
 通俗理解：给定轴dim，在input中，根据index指定的下标，选择元素重组成一个新的tensor，最后输出的out与index的size是一样的。<br>
@@ -267,7 +264,7 @@ tensor([[0.9000],
         [0.7000]])
 ```
 
-##### (6) 广播机制
+#### (6) 广播机制
 当我们对两个形状不同的Tensor按元素运算时，可能会触发`广播(broadcasting)机制`。 <br>
 先适当复制元素使这两个Tensor形状相同后再按元素运算。
 ```
@@ -286,7 +283,7 @@ x, y, x+y
          [4, 5]]))
 ```
 
-##### (7) Tensor和NumPy相互转换
+#### (7) Tensor和NumPy相互转换
 `numpy()`和`from_numpy()`
 + 这两个函数所产生的的Tensor和NumPy中的数组共享相同的内存(所以他们之间的转换很快)，改变其中一个时另一个也会改变!
 
@@ -322,7 +319,7 @@ print(x, y)
 [2. 2. 2.] tensor([1., 1., 1.], dtype=torch.float64)
 ```
 
-##### (8) 降维
+#### (8) 降维
 在 PyTorch 中，对张量进行聚合操作时（例如求和或求均值），默认情况下，会调用相关函数沿指定的轴进行聚合，并降低张量的维度。例如：<br>
 指定 axis=0：沿轴 0 汇总所有行的元素降维（轴0），因此，输入轴0的维数在输出形状中消失。<br>
 指定 axis=1：沿轴 1 汇总所有列的元素降维（轴1），因此，输入轴1的维数在输出形状中消失。<br>
@@ -365,7 +362,7 @@ tensor([[ 3.,  6.,  9.],
         [ 6.,  9., 12.]])
 ```
 
-##### (9) 点积、矩阵-向量积、矩阵-矩阵乘法
+#### (9) 点积、矩阵-向量积、矩阵-矩阵乘法
 **点积**（dot product）<br>
 给定两个向量 $\mathbf{x},\mathbf{y}\in\mathbb{R}^d$ ， 
 它们的*点积*是 $\mathbf{x}^\top\mathbf{y}$ = $\sum_{i=1}^{d} x_i y_i$ 。
@@ -450,7 +447,7 @@ A.shape, B.shape, C.shape
 (torch.Size([2, 4]), torch.Size([4, 3]), torch.Size([2, 3]))
 ```
 
-##### (10) 范数
+#### (10) 范数
 向量的**范数**（norm）将向量映射到标量，表示一个向量有多大。假设 $n$ 维向量 $\mathbf{x}$ 中的元素是 $x_1,\ldots,x_n$ ，那么：<br>
 
 **$L_1$ 范数**：$\|\mathbf{x}\|_1 = \sum_{i=1}^n \left|x_i \right|$ ，表示向量元素的绝对值之和。<br>
@@ -476,150 +473,6 @@ print(f_1, f_2)
 
 tensor(7.) tensor(7.) tensor(5.) tensor(5.)
 tensor(3.4641) tensor(3.4641)
-```
-
-#### 1.2.4 自动微分
-深度学习框架通过自动计算导数，即`自动微分`（automatic differentiation）来加快求导。
-实际中，根据设计好的模型，系统会构建一个`计算图`（computational graph），来跟踪计算是哪些数据通过哪些操作组合起来 产生输出。
-自动微分使系统能够随后反向传播梯度。这里，`反向传播`（backpropagate）意味着跟踪整个计算图，填充关于每个参数的偏导数。
-
-TODO:
-偏导数
-梯度
-
-
-##### (1) 计算图概念
-计算图是一种描述运算的“语言”，由节点（Node）和边（Edge）组成：
-- **节点**表示数据，如标量、向量、矩阵、张量等；
-- **边**表示运算，如加法、减法、乘法、除法、卷积、ReLU 等。
-
-计算图的作用是记录节点和边的信息，从而方便地完成自动求导。举个例子，假设有一个计算过程：
-```
-y = (x+ w) * (w+1)
-```
-将每一步细化为：
-```
-a = x + w
-b = w + 1
-y = a * b
-```
-
-假设要计算 $y$ 对 $w$ 的导数，在计算图中如何操作呢？<br>
-
-<img src="images/计算图求导.png" width="60%" height="40%" alt=""><br>
-
-首先，观察 $w$ 和 $y$ 之间的关系： $w$ 会通过两条路径传递到 $y$ 。一种是通过左边的路径（与 $a$ 相连），另一种是通过右边的路径（与 $b$ 相连）。因此， $y$ 对 $w$ 的偏导数可以通过链式法则表示为：
-
-$$\frac{\partial y}{\partial w} = \frac{\partial y}{\partial a} \cdot \frac{\partial a}{\partial w} + \frac{\partial y}{\partial b} \cdot \frac{\partial b}{\partial w}$$
-
-通过计算图的逐步求导，可以得到最终的结果。
-
-**叶子结点**和**根结点**：
-- 在计算图中，所有的偏微分计算所需的数据是基于 $w$ 和 $x$ 的， $w$ 和 $x$ 被称为叶子结点。叶子结点是计算图中的基础结点，它们的数据不是由其他运算生成的，因此它们是整个计算图的基石，不可以轻易修改。
-- 最终计算得到的 $y$ 是根结点，类似于树形结构，叶子结点在上，根结点在下。
-
-总结来说，计算图通过层层传递信息和梯度，利用链式法则计算梯度，叶子结点是计算图的基础，而根结点是最终计算结果所在的位置。<br>
-
-计算图根据搭建方式的不同，可以分为静态图和动态图。 **PyTorch** 是典型的动态图，**TensorFlow** 是静态图（但 TensorFlow 2.x 也支持动态图模式）。
-
-1. **运算顺序**：<br>
-   **静态图**：先搭建计算图，再进行运算。计算图在运算之前已经完全定义好。<br>
-   **动态图**：在运算的同时，计算图是动态生成的。每进行一步计算，计算图会实时构建。
-
-2. **计算图的可变性**：<br>
-   **动态图**：计算图在运算过程中是可变动的，可以根据每一步的运算来调整。<br>
-   **静态图**：计算图是固定的，不会在运算过程中发生变化。
-
-静态图和动态图优缺点：<br>
-1. **动态图优点**：<br>
-   **易理解**：程序按照编写的顺序执行，直观且易于调试。<br>
-   **灵活性**：可以根据模型的运算结果动态调整计算图，适应不同情况。
-
-2. **静态图优点**：<br>
-   **高效性**：在图搭建完成后，可以对计算图进行优化，从而提高运算效率。尤其在GPU时代，这种优化能显著提升性能。<br>
-   **适用于大规模生产环境**：静态图常常能够更好地进行并行计算和资源调度。
-
-3. **静态图缺点**：
-   **晦涩性**：需要理解 Session、Placeholder 等概念，调试比较困难，灵活性差。
-
-总结来说，静态图和动态图各有优劣，动态图提供了更大的灵活性和易用性，而静态图则在计算效率上有一定优势，适合于大规模部署和优化。
-
-##### (2) Autograd
-torch.Tensor 是这个包的核心类。如果设置它的属性 `.requires_grad` 为 True，那么它将会追踪对于该张量的所有操作。
-当完成计算后可以通过调用 `.backward()`，来自动计算所有的梯度。这个张量的所有梯度将会自动累加到`.grad`属性。<br>
-
-如果不想要被继续追踪，可以调用`.detach()`将其从追踪记录中分离出来，这样就可以防止将来的计算被追踪。
-此外，还可以用`with torch.no_grad()`将不想被追踪的操作代码块包裹起来，这种方法在评估模型的时候很常用，因为在评估模型时，我们并不需要计算可训练参数(requires_grad=True)的梯度。<br>
-
-Tensor和Function互相结合就可以构建一个记录有整个计算过程的**有向无环图(DAG)**。
-每个Tensor都有一个`.grad_fn`属性，用来记录创建张量时所用到的运算，在链式求导法则中会使用到，默认是None。<br>
-
-+ 自动求导机制通过有向无环图（directed acyclic graph ，DAG）实现
-+ 在DAG中，记录数据（对应tensor.data）以及操作（对应tensor.grad_fn）
-+ 操作在pytorch中统称为`Function`，如加法、减法、乘法、ReLU、conv、Pooling等
-
-```
-w = torch.tensor([1.], requires_grad=True)
-x = torch.tensor([2.], requires_grad=True)
-a = torch.add(w, x)
-b = torch.add(w, 1)
-y = torch.mul(a, b)
-
- # x是直接创建的，所以它没有grad_fn
-print(x.grad_fn)
-print(a.grad_fn)
-y.backward()
-print(w.grad)
-
-None
-<AddBackward0 object at 0x7f155bcb23e0>
-tensor([5.])
-```
-grad在反向传播过程中是`累加`的(accumulated)，这意味着每一次运行反向传播，梯度都会累加之前的梯度，所以一般在反向传播之前需把梯度清零。
-```
-# 注意grad是累加的
-y2 = w.sum()
-y2.backward()      # 梯度未清零，累加梯度
-print(w.grad)
-
-y3 = w.sum()
-w.grad.data.zero_()
-y3.backward()      # 梯度清零后，x的梯度为1
-print(w.grad)
-
-tensor([6.])
-tensor([1.])
-```
-
-一个模型的运算部分由 `autograd functions` 组成，这些 autograd functions 内部定义了 `forward` 和 `backward` 方法，用以描述前向传播和梯度反传的过程。
-通过将多个 autograd function 组合在一起，可以实现整个模型的前向传播和梯度反传。在 torch.autograd.Function 中，Function 类是基类，用户可以继承该类来实现自定义的 autograd function。
-自定义的 function 需要重写两个方法：
-+ forward：定义前向传播过程，即数据从输入到输出的计算。
-+ backward：定义反向传播过程，即根据输出的梯度计算输入的梯度。
-
-通过自定义 autograd function，可以实现更复杂的操作或优化，且能灵活控制梯度的计算过程。下面以指数函数为例：
-```
-from torch.autograd import Function
-
-class Exp(Function):                    # 此层计算e^x
-    @staticmethod
-    def forward(ctx, i):                # 模型前向
-        result = i.exp()
-        ctx.save_for_backward(result)   # 保存所需内容，以备backward时使用，所需的结果会被保存在saved_tensors元组中；
-                                        # 此处仅能保存tensor类型变量，若其余类型变量（Int等），可直接赋予ctx作为成员变量，也可以达到保存效果
-        return result
-    @staticmethod
-    def backward(ctx, grad_output):     # 模型梯度反传
-        result, = ctx.saved_tensors     # 取出forward中保存的result
-        return grad_output * result     # 计算梯度并返回
-
-
-# 尝试使用
-x = torch.tensor([1.], requires_grad=True)  # 需要设置tensor的requires_grad属性为True，才会进行梯度反传
-ret = Exp.apply(x)                          # 使用apply方法调用自定义autograd function
-print(ret)                                  # tensor([2.7183], grad_fn=<ExpBackward>)
-ret.backward()                              # 反传梯度
-print(x.grad)                               # tensor([2.7183])
 ```
 
 ## 参考引用
