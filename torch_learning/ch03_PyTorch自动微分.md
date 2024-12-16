@@ -1,8 +1,6 @@
 
-## 一、PyTorch 核心模块
-
-#### 1.2.4 偏导数和梯度
-##### (1) 偏导数
+## 一、微积分
+### 1.1 导数和微分、偏导数、梯度
 设多元函数 $y = f(x_1, x_2, \ldots, x_n)$ 是一个具有 $n$ 个变量的函数。$y$ 关于第 $i$ 个参数 $x_i$ 的**偏导数**（partial derivative）为：
 
 $$\frac{\partial y}{\partial x_i} = \lim_{h \rightarrow 0} \frac{f(x_1, \ldots, x_{i-1}, x_i+h, x_{i+1}, \ldots, x_n) - f(x_1, \ldots, x_i, \ldots, x_n)}{h}.$$
@@ -14,13 +12,18 @@ $$\frac{\partial y}{\partial x_i} = \lim_{h \rightarrow 0} \frac{f(x_1, \ldots, 
 
 $$\frac{\partial y}{\partial x_i} = \frac{\partial f}{\partial x_i} = f_{x_i} = f_i = D_i f = D_{x_i} f.$$
 
+### 1.2 矩阵微分
+[矩阵求导入门学习路线参考](https://zhuanlan.zhihu.com/p/343299481)<br>
+[动手学深度学习在线课程](https://courses.d2l.ai/zh-v2/)<br>
+[机器学习 标量、向量、矩阵的求导 PyTorch自动求导](https://blog.csdn.net/qq_45523675/article/details/127503367)
 
-#### 1.2.5 自动微分
+
+## 二、自动微分
 深度学习框架通过自动计算导数，即`自动微分`（automatic differentiation）来加快求导。
 实际中，根据设计好的模型，系统会构建一个`计算图`（computational graph），来跟踪计算是哪些数据通过哪些操作组合起来 产生输出。
 自动微分使系统能够随后反向传播梯度。这里，`反向传播`（backpropagate）意味着跟踪整个计算图，填充关于每个参数的偏导数。
 
-##### (1) 计算图概念
+### 2.1 计算图概念
 计算图是一种描述运算的“语言”，由节点（Node）和边（Edge）组成：
 - **节点**表示数据，如标量、向量、矩阵、张量等；
 - **边**表示运算，如加法、减法、乘法、除法、卷积、ReLU 等。
@@ -156,9 +159,6 @@ ret.backward()                              # 反传梯度
 print(x.grad)                               # tensor([2.7183])
 ```
 
-##### (3) 标量关于向量的偏导
-##### (4) 向量关于向量的偏导
-
 
 ## 参考引用
 
@@ -171,3 +171,4 @@ print(x.grad)                               # tensor([2.7183])
 [7] [20天吃掉那只Pytorch](https://github.com/lyhue1991/eat_pytorch_in_20_days/tree/master)<br>
 [8] [PyTorch 源码解读之 torch.autograd：梯度计算详解](https://zhuanlan.zhihu.com/p/321449610)<br>
 [9] [《动手学深度学习v2》](https://zh-v2.d2l.ai/)<br>
+[9] [动手学深度学习在线课程](https://courses.d2l.ai/zh-v2/)<br>
