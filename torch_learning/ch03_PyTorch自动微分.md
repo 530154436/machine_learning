@@ -13,10 +13,21 @@ $$\frac{\partial y}{\partial x_i} = \lim_{h \rightarrow 0} \frac{f(x_1, \ldots, 
 $$\frac{\partial y}{\partial x_i} = \frac{\partial f}{\partial x_i} = f_{x_i} = f_i = D_i f = D_{x_i} f.$$
 
 ### 1.2 矩阵微分
-[矩阵求导入门学习路线参考](https://zhuanlan.zhihu.com/p/343299481)<br>
-[动手学深度学习在线课程](https://courses.d2l.ai/zh-v2/)<br>
-[机器学习 标量、向量、矩阵的求导 PyTorch自动求导](https://blog.csdn.net/qq_45523675/article/details/127503367)
+1. 《PyTorch深度学习实践》 <br>
+[《PyTorch深度学习实践》课程](https://liuii.github.io/post/pytorch-tutorials/)<br>
+[《PyTorch深度学习实践》笔记](https://github.com/MLNLP-World/Pytorch-Deep-Learning-Practice-Notes/tree/main)<br>
+[《PyTorch深度学习实践》代码](https://github.com/DelinQu/pytorch-prev/tree/master)<br>
 
+2. 《动手深度学习v2.0》 <br>
+[在线课程](https://courses.d2l.ai/zh-v2/)<br>
+[视频地址](https://www.bilibili.com/video/BV1if4y147hS/?spm_id_from=333.999.0.0)<br>
+[在线书籍](https://zh.d2l.ai/index.html)<br>
+[项目代码](https://github.com/d2l-ai/d2l-zh)<br>
+
+[矩阵求导入门学习路线参考](https://zhuanlan.zhihu.com/p/343299481)<br>
+[矩阵求导与实例](https://blog.csdn.net/young_gy/article/details/50008953)<br>
+[机器学习 标量、向量、矩阵的求导 PyTorch自动求导](https://blog.csdn.net/qq_45523675/article/details/127503367)
+[机器学习：多元线性回归中矩阵求导方法](https://btoai.com/p/300)
 
 ## 二、自动微分
 深度学习框架通过自动计算导数，即`自动微分`（automatic differentiation）来加快求导。
